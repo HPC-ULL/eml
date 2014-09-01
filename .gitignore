@@ -1,0 +1,52 @@
+# Library Objects
+src/*.o
+src/*.lo
+*.la
+.libs/
+# Backups
+*~
+*.swp
+# Test log/result files
+test/*
+!test/*.c
+!test/*.h
+# Utils binaries
+utils/*
+!utils/*.c
+!utils/*.h
+# Distribution tarballs
+/*.tar.gz
+# Generated documentation
+doxygen-doc
+README
+NEWS
+ChangeLog
+# Autotools files
+Doxyfile
+Makefile
+Makefile.in
+aclocal.m4
+ar-lib
+autom4te.cache/
+autoscan.log
+compile
+config.h
+config.h.in
+config.log
+config.status
+configure
+configure.ac.old
+install-sh
+missing
+stamp-h1
+test-driver
+test-suite.log
+.dirstamp
+.deps/
+config.guess
+config.sub
+depcomp
+libtool
+ltmain.sh
+m4/*
+!m4/ax_prog_doxygen.m4

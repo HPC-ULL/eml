@@ -1,0 +1,17 @@
+/**
+* @defgroup externalapi External API
+* EML public library interface.
+*
+* This documentation covers all functions and definitions needed to instrument
+* application code for performance measurement.
+*
+* @see @ref doc/usage.md For a usage overview complete with examples.
+*/
+
+/**
+* @defgroup internalapi Internal API
+* Internal definitions for EML development.
+*
+* @note This documentation is not necessary to use the library. It is provided
+* for library developers.
+*/
