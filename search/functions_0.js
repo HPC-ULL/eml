@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['emldatadumpjson',['emlDataDumpJSON',['../group__externalapi__data.html#gade7adeab26850aa389edcf96b422d333',1,'data.h']]],
+  ['emldatafree',['emlDataFree',['../group__externalapi__data.html#ga02e372487cd30f175e581c0368d22f3f',1,'data.h']]],
+  ['emldatagetconsumed',['emlDataGetConsumed',['../group__externalapi__data.html#ga5c03583cb178e8e88c19e81fdcbcd3b5',1,'data.h']]],
+  ['emldatagetelapsed',['emlDataGetElapsed',['../group__externalapi__data.html#ga5d44297be7901855a8682e3f8e60f399',1,'data.h']]],
+  ['emldatarunrelease',['emlDataRunRelease',['../data_8h.html#ad8525526514957a334ee07f53bb6fd02',1,'data.h']]],
+  ['emldataupdatetotals',['emlDataUpdateTotals',['../data_8h.html#ae3767544dc7422df237240ab39cd7621',1,'data.h']]],
+  ['emldevicebyindex',['emlDeviceByIndex',['../group__externalapi__device.html#gab67b01aae368886336bc010da93ff77f',1,'device.h']]],
+  ['emldevicegetcount',['emlDeviceGetCount',['../group__externalapi__device.html#gaffac50f9f2ec4530a1464f0b165b901f',1,'device.h']]],
+  ['emldevicegetname',['emlDeviceGetName',['../group__externalapi__device.html#ga896af2aeea213b0b6cc00a45ab2d4a05',1,'device.h']]],
+  ['emldevicegettype',['emlDeviceGetType',['../group__externalapi__device.html#ga7bec1cdf3cd71ef2452cfc3d26a692f8',1,'device.h']]],
+  ['emldevicegettypestatus',['emlDeviceGetTypeStatus',['../group__externalapi__device.html#gadf5f424561720da8a760f395dcf5a956',1,'device.h']]],
+  ['emldevicemonitorinit',['emlDeviceMonitorInit',['../monitor_8h.html#a49cb5ddf57d941febed50d95cafddb77',1,'monitor.h']]],
+  ['emldevicemonitorshutdown',['emlDeviceMonitorShutdown',['../monitor_8h.html#a448a782e8ff2f039095f145fdeea3e69',1,'monitor.h']]],
+  ['emldevicemonitorstart',['emlDeviceMonitorStart',['../monitor_8h.html#a5af90fa7b7bc522e43b4a826ef580ca2',1,'monitor.h']]],
+  ['emldevicemonitorstop',['emlDeviceMonitorStop',['../monitor_8h.html#a5e42fd87fc9e80834f93e4e702c8e5d8',1,'monitor.h']]],
+  ['emldevicestart',['emlDeviceStart',['../group__externalapi__device.html#ga7bb3036ef1c1e43089fe1bc6dae65507',1,'device.h']]],
+  ['emldevicestop',['emlDeviceStop',['../group__externalapi__device.html#ga4631ff54bb655a85d683b5135572108a',1,'device.h']]],
+  ['emlerrormessage',['emlErrorMessage',['../group__externalapi__error.html#gaf752af7976176e6b5f49ee9e0b2f1089',1,'error.h']]],
+  ['emlinit',['emlInit',['../group__externalapi__main.html#gac9fc3df543daa1602acb714fb8abb4ff',1,'eml.h']]],
+  ['emlshutdown',['emlShutdown',['../group__externalapi__main.html#gae47d01e1c1f191d995c25fce175d5ba7',1,'eml.h']]],
+  ['emlstart',['emlStart',['../group__externalapi__main.html#ga298ccd82dfc33880fc4c760ec87e98f2',1,'eml.h']]],
+  ['emlstop',['emlStop',['../group__externalapi__main.html#gad4d58ae6a03a8bc23313d9b3eea42d95',1,'eml.h']]]
+];
