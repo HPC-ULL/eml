@@ -1,0 +1,76 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "emlData",
+    "description": "Energy consumption data for a measured time interval",
+
+    "definitions": {
+        "factor": {
+            "type": "object",
+            "properties": {
+                "mult": {
+                    "description": "Factor numerator",
+                    "type": "number",
+                    "minimum": 1
+                },
+                "div": {
+                    "description": "Factor denominator",
+                    "type": "number",
+                    "minimum": 1
+                }
+            },
+            "required": ["mult", "div"]
+        }
+    },
+
+    "type": "object",
+    "properties": {
+        "device": {
+            "description": "EML device identifier",
+            "type": "string"
+        },
+        "elapsed": {
+            "description": "Elapsed time interval, in time units",
+            "type": "number",
+            "minimum": 0
+        },
+        "consumed": {
+            "description": "Consumed energy, in energy units",
+            "type": "number",
+            "minimum": 0
+        },
+        "time_factor": {
+            "description": "Factor to convert time units to seconds",
+            "$ref": "#/definitions/factor"
+        },
+        "energy_factor": {
+            "description": "Factor to convert energy units to seconds",
+            "$ref": "#/definitions/factor"
+        },
+        "power_factor": {
+            "description": "Factor to convert power units to seconds",
+            "$ref": "#/definitions/factor"
+        },
+        "header": {
+            "description": "Data fields available",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true
+        },
+        "data": {
+            "description": "Data points",
+            "type": "array"
+        }
+    },
+    "required": [
+        "device",
+        "elapsed",
+        "consumed",
+        "time_factor",
+        "energy_factor",
+        "power_factor",
+        "header",
+        "data"
+    ]
+}

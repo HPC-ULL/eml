@@ -1,0 +1,41 @@
+Installation
+============
+
+Installation from source package
+--------------------------------
+From the extracted directory, run:
+
+	./configure
+	make
+	make install
+
+Installation from git
+---------------------
+Generate GNU Build System files first with:
+
+	autoreconf -i
+
+You can now proceed as with a source package:
+
+	./configure
+	make
+	make install
+
+Build configuration
+-------------------
+By default, the library will be built with support for all devices. If necessary
+header files for a specific device type are not found on the build machine,
+support will be automatically disabled for that type.
+
+It is also possible to manually disable support for a specific device through
+`configure` flags:
+
+	--without-mic           Disable Intel Many Integrated Core support (default:
+				enabled if present)
+	--without-rapl          Disable Intel Running Average Power Limit support
+				(default: enabled)
+	--without-nvml          Disable NVIDIA Management Library support (default:
+				enabled if present)
+
+Check the output of `configure --help` for a full list of configuration
+parameters.
