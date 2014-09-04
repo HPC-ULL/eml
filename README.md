@@ -33,3 +33,10 @@ Contact
 Universidad de La Laguna, High Performance Computing group <cap@pcg.ull.es>
 
 Homepage: http://cap.pcg.ull.es
+
+Acknowledgements
+----------------
+This work was supported by the Spanish Ministry of Education and Science
+through TIN2011-24598 project and through the FPU program. It also has been
+developed in the framework of the NESUS European network COST-IC-1305 and the
+Spanish network CAPAP-H4.
