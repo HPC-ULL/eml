@@ -70,7 +70,7 @@ static void* monitor_thread(void* arg) {
     const size_t i = mon->npoints % DATABLOCK_SIZE;
     const int needblock = !i && mon->npoints;
     if (needblock) {
-      struct emlDataBlock* thisblk = malloc(sizeof(*thisblk));
+      thisblk = malloc(sizeof(*thisblk));
       if (!thisblk) goto mem_err;
       thisblk->fields = malloc(nfields * DATABLOCK_SIZE * sizeof(*thisblk->fields));
       if (!thisblk->fields) goto mem_err;
@@ -78,7 +78,7 @@ static void* monitor_thread(void* arg) {
     }
 
     //get a new datapoint and wait
-    dev->driver->measure(dev->index, &mon->curblk->fields[i]);
+    dev->driver->measure(dev->index, &thisblk->fields[i]);
 
     pthread_mutex_lock(&mon->pointlock);
     mon->npoints++;
