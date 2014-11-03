@@ -94,6 +94,7 @@ mem_err:
 enum emlError emlDeviceMonitorInit(struct emlDevice* const device) {
   device->monitor = malloc(sizeof(*device->monitor));
   device->monitor->level = 0;
+  pthread_mutex_init(&device->monitor->pointlock, NULL);
   return EML_SUCCESS;
 }
 
@@ -108,6 +109,7 @@ enum emlError emlDeviceMonitorShutdown(struct emlDevice* const device) {
     emlDataFree(discarded);
   }
 
+  pthread_mutex_destroy(&device->monitor->pointlock);
   free(device->monitor);
   return EML_SUCCESS;
 }
@@ -154,7 +156,6 @@ enum emlError emlDeviceMonitorStart(const struct emlDevice* const device) {
     mon->firstpoint[0] = 0;
 
     //launch measuring thread
-    pthread_mutex_init(&mon->pointlock, NULL);
     int err = pthread_create(&mon->measuring_thread,
         NULL,
         &monitor_thread,
