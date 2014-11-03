@@ -11,6 +11,7 @@
 #define _POSIX_C_SOURCE 200112L
 
 #include <assert.h>
+#include <errno.h>
 #include <pthread.h>
 #include <stdlib.h>
 #include <time.h>
@@ -49,9 +50,12 @@ struct emlMonitor {
 
 static void* monitor_thread(void* arg) {
   const struct emlDevice* dev = arg;
+  const long delay_ns = dev->driver->default_props->sampling_nanos;
+
+  static const long NS_PER_SEC = 1000000000L;
   const struct timespec delay = {
-    .tv_sec = 0,
-    .tv_nsec = dev->driver->default_props->sampling_nanos,
+    .tv_sec = delay_ns / NS_PER_SEC,
+    .tv_nsec = delay_ns % NS_PER_SEC,
   };
   struct emlMonitor* mon = dev->monitor;
 
@@ -81,7 +85,9 @@ static void* monitor_thread(void* arg) {
     mon->curblk = thisblk;
     pthread_mutex_unlock(&mon->pointlock);
 
-    clock_nanosleep(CLOCK_MONOTONIC, 0, &delay, NULL);
+    int err = clock_nanosleep(CLOCK_MONOTONIC, 0, &delay, NULL);
+    assert(err != EINVAL);
+    assert(err != EFAULT);
   }
 
   return NULL;
