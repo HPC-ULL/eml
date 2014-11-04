@@ -162,6 +162,18 @@ static enum emlError init() {
       nvmldevices = resized;
   }
 
+  nvml_driver.devices = malloc(nvml_driver.ndevices * sizeof(*nvml_driver.devices));
+  for (size_t i = 0; i < nvml_driver.ndevices; i++) {
+    struct emlDevice devinit = {
+      .driver = &nvml_driver,
+      .index = i,
+    };
+    snprintf(devinit.name, sizeof(devinit.name), "%s%zu", nvml_driver.name, i);
+
+    struct emlDevice* const dev = &nvml_driver.devices[i];
+    memcpy(dev, &devinit, sizeof(*dev));
+  }
+
   nvml_driver.initialized = 1;
   return EML_SUCCESS;
 
@@ -196,6 +208,7 @@ static enum emlError shutdown() {
   if (nvml_driver.ndevices) {
     free(nvmldevices);
   }
+  free(nvml_driver.devices);
 
   dlclose(handle);
 
@@ -238,6 +251,7 @@ static const struct emlDataProperties default_props = {
 //public driver state and interface
 struct emlDriver nvml_driver = {
   .name = "nvml",
+  .type = EML_DEV_NVML,
   .failed_reason = "",
   .default_props = &default_props,
 

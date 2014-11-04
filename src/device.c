@@ -21,7 +21,7 @@
 #include "monitor.h"
 
 static const struct emlDriver* drivers[EML_DEVICE_TYPE_COUNT] = {0};
-static struct emlDevice* devices = NULL;
+static struct emlDevice** devices = NULL;
 static size_t ndevices = 0;
 
 enum emlError emlInit() {
@@ -68,7 +68,7 @@ enum emlError emlInit() {
 
     if (drv->ndevices > 0) {
       size_t newsize = (ndevices + drv->ndevices) * sizeof(*devices);
-      struct emlDevice* tmpdevices;
+      struct emlDevice** tmpdevices;
       tmpdevices = realloc(devices, newsize);
       if (!tmpdevices) {
         free(devices);
@@ -77,17 +77,10 @@ enum emlError emlInit() {
       }
       devices = tmpdevices;
 
+      //initialize all driver devices and register them by ID
       for (size_t j = 0; j < drv->ndevices; j++) {
-        struct emlDevice devinit = {
-          .type = i,
-          .index = j,
-          .driver = drv,
-        };
-
-        struct emlDevice* newdev = &devices[ndevices + j];
-        memcpy(newdev, &devinit, sizeof(*newdev));
-        snprintf(newdev->name, MAX_NAME_LEN, "%s%zu", drv->name, j);
-        emlDeviceMonitorInit(newdev);
+        devices[ndevices + j] = &drv->devices[j];
+        emlDeviceMonitorInit(devices[ndevices + j]);
       }
 
       ndevices += drv->ndevices;
@@ -102,7 +95,7 @@ enum emlError emlShutdown() {
     return EML_NOT_INITIALIZED;
 
   for (size_t i = 0; i < ndevices; i++)
-    emlDeviceMonitorShutdown(&devices[i]);
+    emlDeviceMonitorShutdown(devices[i]);
 
   for (size_t i = 0; i < EML_DEVICE_TYPE_COUNT; i++) {
     const struct emlDriver* drv = drivers[i];
@@ -139,7 +132,7 @@ enum emlError emlDeviceByIndex(size_t index, struct emlDevice** const device) {
   if (index >= ndevices)
     return EML_INVALID_PARAMETER;
 
-  *device = &devices[index];
+  *device = devices[index];
   return EML_SUCCESS;
 }
 
@@ -159,7 +152,7 @@ enum emlError emlDeviceGetType(const struct emlDevice* const device, enum emlDev
   if (!device)
     return EML_INVALID_PARAMETER;
 
-  *type = device->type;
+  *type = device->driver->type;
   return EML_SUCCESS;
 }
 
@@ -217,13 +210,13 @@ enum emlError emlStart() {
     return EML_NOT_INITIALIZED;
 
   for (size_t i = 0; i < ndevices; i++) {
-    enum emlError ret = emlDeviceStart(&devices[i]);
+    enum emlError ret = emlDeviceStart(devices[i]);
 
     if (ret != EML_SUCCESS) {
       dbglog_error("emlStart: %s", emlErrorMessage(ret));
       while (i--) {
         struct emlData* discarded;
-        emlDeviceStop(&devices[i], &discarded);
+        emlDeviceStop(devices[i], &discarded);
         emlDataFree(discarded);
       }
 
@@ -240,7 +233,7 @@ enum emlError emlStop(struct emlData** results) {
 
   enum emlError ret = EML_SUCCESS;
   for (size_t i = 0; i < ndevices; i++) {
-    ret = emlDeviceStop(&devices[i], &results[i]);
+    ret = emlDeviceStop(devices[i], &results[i]);
 
     if (ret != EML_SUCCESS) {
       dbglog_error("emlStop: %s", emlErrorMessage(ret));

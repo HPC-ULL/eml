@@ -373,6 +373,19 @@ static enum emlError init() {
   default_props.energy_factor = -energy_divisor;
 
   rapl_driver.ndevices = npackages;
+
+  rapl_driver.devices = malloc(rapl_driver.ndevices * sizeof(*rapl_driver.devices));
+  for (size_t i = 0; i < rapl_driver.ndevices; i++) {
+    struct emlDevice devinit = {
+      .driver = &rapl_driver,
+      .index = i,
+    };
+    snprintf(devinit.name, sizeof(devinit.name), "%s%zu", rapl_driver.name, i);
+
+    struct emlDevice* const dev = &rapl_driver.devices[i];
+    memcpy(dev, &devinit, sizeof(*dev));
+  }
+
   rapl_driver.initialized = 1;
 
   return EML_SUCCESS;
@@ -403,6 +416,8 @@ static enum emlError shutdown() {
   free(msrfd);
   free(package_for_core);
   free(core_from_package);
+
+  free(rapl_driver.devices);
 
   return EML_SUCCESS;
 }
@@ -447,6 +462,7 @@ static struct emlDataProperties default_props = {
 //public driver state and interface
 struct emlDriver rapl_driver = {
   .name = "rapl",
+  .type = EML_DEV_RAPL,
   .failed_reason = "",
   .default_props = &default_props,
 

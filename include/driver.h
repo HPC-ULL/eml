@@ -16,6 +16,7 @@
 #ifndef EML_DRIVER_H
 #define EML_DRIVER_H
 
+#include "device.h"
 #include "error.h"
 
 struct emlData;
@@ -25,6 +26,9 @@ struct emlDataProperties;
 struct emlDriver {
   /** Driver name */
   const char* name;
+
+  /** Device type */
+  const enum emlDeviceType type;
 
   /** Default measurement properties for this driver */
   const struct emlDataProperties* default_props;
@@ -38,7 +42,10 @@ struct emlDriver {
   /** Reason of initialization failure */
   char failed_reason[BUFSIZ];
 
-  /** Number of available devices of this type */
+  /** Device information structures */
+  struct emlDevice* devices;
+
+  /** Number of available devices */
   size_t ndevices;
 
   /**

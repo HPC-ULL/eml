@@ -157,6 +157,18 @@ static enum emlError init() {
     mic_driver.ndevices++;
   }
 
+  mic_driver.devices = malloc(mic_driver.ndevices * sizeof(*mic_driver.devices));
+  for (size_t i = 0; i < mic_driver.ndevices; i++) {
+    struct emlDevice devinit = {
+      .driver = &mic_driver,
+      .index = i,
+    };
+    snprintf(devinit.name, sizeof(devinit.name), "%s%zu", mic_driver.name, i);
+
+    struct emlDevice* const dev = &mic_driver.devices[i];
+    memcpy(dev, &devinit, sizeof(*dev));
+  }
+
   mic_driver.initialized = 1;
   return EML_SUCCESS;
 
@@ -203,6 +215,7 @@ static enum emlError shutdown() {
       dbglog_warn("mic_free_devices failed: %s", dl_mic_get_error_string());
     }
   }
+  free(mic_driver.devices);
 
   dlclose(handle);
 
@@ -254,6 +267,7 @@ static const struct emlDataProperties default_props = {
 //public driver state and interface
 struct emlDriver mic_driver = {
   .name = "mic",
+  .type = EML_DEV_MIC,
   .failed_reason = "",
   .default_props = &default_props,
 

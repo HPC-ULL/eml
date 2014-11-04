@@ -19,28 +19,25 @@
 #include <eml/device.h>
 
 /** Maximum internal name length */
-#define MAX_NAME_LEN 20
+#define EML_DEVNAME_MAXLEN 40
 
 struct emlMonitor;
 
 /** Holds information about a measurable device */
 struct emlDevice {
-  /** Device type */
-  const enum emlDeviceType type;
-
-  /** Device index within its type */
-  const size_t index;
-
   /** Driver associated to this device */
   const struct emlDriver* const driver;
 
+  /** Device index within the driver */
+  const size_t index;
+
   /** Internal device name.
    *
-   * For example, "rapl-0" or "nvml-2".
+   * For example, "rapl0" or "nvml2".
    */
-  char name[MAX_NAME_LEN];
+  char name[EML_DEVNAME_MAXLEN];
 
-  /** Device monitor */
+  /** Device monitoring state */
   struct emlMonitor* monitor;
 };
 
