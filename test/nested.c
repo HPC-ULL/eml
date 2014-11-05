@@ -13,7 +13,13 @@
 
 #include <eml.h>
 
-#define ITERATIONS 3
+#ifndef TEST_SECONDS
+#define TEST_SECONDS 10
+#endif
+
+#ifndef TEST_ITERATIONS
+#define TEST_ITERATIONS 3
+#endif
 
 void check_error(emlError_t ret) {
   if (ret != EML_SUCCESS) {
@@ -45,15 +51,15 @@ int main() {
   size_t count;
   check_error(emlDeviceGetCount(&count));
   emlData_t* outer_data[count];
-  emlData_t* inner_data[ITERATIONS][count];
+  emlData_t* inner_data[TEST_ITERATIONS][count];
 
   //start measuring outside the loop
   check_error(emlStart());
 
-  for (int i = 0; i < ITERATIONS; i++) {
+  for (int i = 0; i < TEST_ITERATIONS; i++) {
     //measure one iteration
     check_error(emlStart());
-    sleep(1);
+    sleep(TEST_SECONDS);
     check_error(emlStop(inner_data[i]));
   }
 
@@ -61,7 +67,7 @@ int main() {
   check_error(emlStop(outer_data));
 
   //print data for every iteration
-  for (int i = 0; i < ITERATIONS; i++) {
+  for (int i = 0; i < TEST_ITERATIONS; i++) {
     printf("iteration %d:\n", i);
     print_and_free_data(inner_data[i], count);
   }

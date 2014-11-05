@@ -13,6 +13,10 @@
 
 #include <eml.h>
 
+#ifndef TEST_SECONDS
+#define TEST_SECONDS 10
+#endif
+
 void check_error(emlError_t ret) {
   if (ret != EML_SUCCESS) {
     fprintf(stderr, "error: %s\n", emlErrorMessage(ret));
@@ -32,7 +36,7 @@ int main() {
   //start measuring
   check_error(emlStart());
 
-  sleep(1);
+  sleep(TEST_SECONDS);
 
   //stop measuring and gather data
   check_error(emlStop(data));

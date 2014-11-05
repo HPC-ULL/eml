@@ -13,7 +13,13 @@
 
 #include <eml.h>
 
-const int RUNS = 2;
+#ifndef TEST_SECONDS
+#define TEST_SECONDS 10
+#endif
+
+#ifndef TEST_ITERATIONS
+#define TEST_ITERATIONS 3
+#endif
 
 void check_error(emlError_t ret) {
   if (ret != EML_SUCCESS) {
@@ -30,14 +36,14 @@ int main() {
   size_t count;
   check_error(emlDeviceGetCount(&count));
 
-  for (int run = 0; run < RUNS; run++) {
+  for (int run = 0; run < TEST_ITERATIONS; run++) {
     printf("[run %d]\n", run + 1);
     emlData_t* data[count];
 
     //start measuring
     check_error(emlStart());
 
-    sleep(1);
+    sleep(TEST_SECONDS);
 
     //stop measuring and gather data
     check_error(emlStop(data));
