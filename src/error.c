@@ -43,6 +43,8 @@ const char* emlErrorMessage(enum emlError err) {
       return "simultaneous measurement limit exceeded";
     case EML_BAD_CONFIG:
       return "malformed configuration file";
+    case EML_NETWORK_ERROR:
+      return "network error";
     default:
       return "unknown error";
   }

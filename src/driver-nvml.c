@@ -264,6 +264,7 @@ struct emlDriver nvml_driver = {
   .failed_reason = "",
   .default_props = &default_props,
   .cfgopts = cfgopts,
+  .config = NULL,
 
   .init = &init,
   .shutdown = &shutdown,

@@ -61,6 +61,8 @@ typedef enum emlError {
   EML_MEASUREMENT_STACK_FULL = 14,
   /** Bad configuration file */
   EML_BAD_CONFIG = 15,
+  /** Network error */
+  EML_NETWORK_ERROR = 16,
   /** Internal library error */
   EML_UNKNOWN = 999
 } emlError_t;

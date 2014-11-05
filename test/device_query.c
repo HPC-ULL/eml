@@ -40,9 +40,10 @@ int main() {
   check_error(emlInit());
 
   printf("Available drivers:\n");
-  printf("    [NVML] %s\n", support_repr(EML_DEV_NVML));
-  printf("    [RAPL] %s\n", support_repr(EML_DEV_RAPL));
-  printf("    [ MIC] %s\n", support_repr(EML_DEV_MIC));
+  printf("    [ NVML] %s\n", support_repr(EML_DEV_NVML));
+  printf("    [ RAPL] %s\n", support_repr(EML_DEV_RAPL));
+  printf("    [  MIC] %s\n", support_repr(EML_DEV_MIC));
+  printf("    [SBPDU] %s\n", support_repr(EML_DEV_SB_PDU));
 
   size_t count;
   check_error(emlDeviceGetCount(&count));

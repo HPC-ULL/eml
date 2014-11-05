@@ -16,6 +16,9 @@ The following devices are currently supported:
 	* Intel Xeon Phi MICs
 	(through the Intel Manycore Platform Software Stack (3.x+), from the host device)
 
+	* Schleifenbauer PDUs
+	(through the Schleifenbauer socket API)
+
 EML automatically discovers necessary libraries and available devices at runtime.
 
 Documentation

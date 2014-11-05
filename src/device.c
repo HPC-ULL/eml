@@ -47,6 +47,11 @@ enum emlError emlInit() {
   drivers[EML_DEV_MIC] = &mic_driver;
 #endif
 
+#ifdef ENABLE_SB_PDU
+  extern struct emlDriver sb_pdu_driver;
+  drivers[EML_DEV_SB_PDU] = &sb_pdu_driver;
+#endif
+
   cfg_opt_t cfgopts[] = {
 
 #ifdef ENABLE_NVML
@@ -59,6 +64,10 @@ enum emlError emlInit() {
 
 #ifdef ENABLE_MIC
     CFG_SEC("mic", drivers[EML_DEV_MIC]->cfgopts, CFGF_NONE),
+#endif
+
+#ifdef ENABLE_SB_PDU
+    CFG_SEC("sb_pdu", drivers[EML_DEV_SB_PDU]->cfgopts, CFGF_NONE),
 #endif
 
     CFG_END()

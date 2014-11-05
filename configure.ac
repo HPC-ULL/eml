@@ -20,23 +20,34 @@ PKG_CHECK_MODULES([CONFUSE], [libconfuse])
 
 # Optional: Intel MIC support
 AC_ARG_WITH([mic], AS_HELP_STRING([--without-mic],
-	[Disable Intel Many Integrated Core support (default: enabled if present)]))
+	[Disable Intel Many Integrated Core support
+		(default: enabled if miclib.h is available)]))
 AS_IF([test "x$with_mic" != "xno"],
 	[AC_CHECK_HEADER([miclib.h], [have_mic=yes])])
 AM_CONDITIONAL([ENABLE_MIC], [test "x$have_mic" = "xyes"])
 
 # Optional: Intel RAPL support
 AC_ARG_WITH([rapl], AS_HELP_STRING([--without-rapl],
-	[Disable Intel Running Average Power Limit support (default: enabled)]))
+	[Disable Intel Running Average Power Limit support
+		(default: enabled)]))
 AS_IF([test "x$with_rapl" != "xno"], [have_rapl=yes])
 AM_CONDITIONAL([ENABLE_RAPL], [test "x$have_rapl" = "xyes"])
 
 # Optional: NVIDIA Management Library support
 AC_ARG_WITH([nvml], AS_HELP_STRING([--without-nvml],
-	[Disable NVIDIA Management Library support (default: enabled if present)]))
+	[Disable NVIDIA Management Library support
+		(default: enabled if nvml.h is available)]))
 AS_IF([test "x$with_nvml" != "xno"],
 	[AC_CHECK_HEADER([nvml.h], [have_nvml=yes])])
 AM_CONDITIONAL([ENABLE_NVML], [test "x$have_nvml" = "xyes"])
+
+# Optional: Schleifenbauer PDU support
+AC_ARG_WITH([sb_pdu], AS_HELP_STRING([--without-sb-pdu],
+	[Disable Schleifenbauer PDU support
+		(default: enabled if libcrypto is available)]))
+AS_IF([test "x$with_sb_pdu" != "xno"],
+	[PKG_CHECK_MODULES([CRYPTO], [libcrypto], [have_sb_pdu=yes])])
+AM_CONDITIONAL([ENABLE_SB_PDU], [test "x$have_sb_pdu" = "xyes"])
 
 LT_INIT
 

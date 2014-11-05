@@ -41,6 +41,8 @@ typedef enum emlDeviceType {
   EML_DEV_RAPL = 1,
   /** Intel MICs (Xeon Phi) */
   EML_DEV_MIC = 2,
+  /** Schleifenbauer PDUs */
+  EML_DEV_SB_PDU = 3,
   /** Number of supported device types */
   EML_DEVICE_TYPE_COUNT
 } emlDeviceType_t;

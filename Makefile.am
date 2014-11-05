@@ -22,6 +22,8 @@ lib@PACKAGE_TARNAME@_la_SOURCES = \
 	include/monitor.h \
 	include/timer.h
 
+lib@PACKAGE_TARNAME@_la_LIBADD =
+
 if ENABLE_MIC
 lib@PACKAGE_TARNAME@_la_CPPFLAGS += -DENABLE_MIC
 lib@PACKAGE_TARNAME@_la_SOURCES += src/driver-mic.c
@@ -37,9 +39,16 @@ lib@PACKAGE_TARNAME@_la_CPPFLAGS += -DENABLE_NVML
 lib@PACKAGE_TARNAME@_la_SOURCES += src/driver-nvml.c
 endif
 
-#Flags for dependencies
+if ENABLE_SB_PDU
+lib@PACKAGE_TARNAME@_la_CPPFLAGS += -DENABLE_SB_PDU
+lib@PACKAGE_TARNAME@_la_SOURCES += src/driver-sb-pdu.c
 
-lib@PACKAGE_TARNAME@_la_LIBADD =
+#libcrypto is used for RC4 encryption
+lib@PACKAGE_TARNAME@_la_LIBADD += @CRYPTO_LIBS@
+lib@PACKAGE_TARNAME@_la_CPPFLAGS += @CRYPTO_CFLAGS@
+endif
+
+#Flags for common dependencies
 
 lib@PACKAGE_TARNAME@_la_LIBADD += @CONFUSE_LIBS@
 lib@PACKAGE_TARNAME@_la_CPPFLAGS += @CONFUSE_CFLAGS@
