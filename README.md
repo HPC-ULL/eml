@@ -33,7 +33,13 @@ EML is released under the GPLv2 license.
 
 Dependencies
 ------------
+Required:
 * [libconfuse](https://github.com/martinh/libconfuse), for configuration parsing
+
+Optional:
+* [NVML](https://developer.nvidia.com/nvidia-management-library-nvml), for Nvidia GPU support
+* [MPSS 3.x+](https://software.intel.com/en-us/articles/intel-manycore-platform-software-stack-mpss), for Intel MIC support
+* [libcrypto](https://www.openssl.org), for Schleifenbauer PDU support (RC4 encryption)
 
 Contact
 -------
