@@ -59,6 +59,8 @@ typedef enum emlError {
   EML_ALREADY_STARTED = 13,
   /** Nested section stack full */
   EML_MEASUREMENT_STACK_FULL = 14,
+  /** Bad configuration file */
+  EML_BAD_CONFIG = 15,
   /** Internal library error */
   EML_UNKNOWN = 999
 } emlError_t;

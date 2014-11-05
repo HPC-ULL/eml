@@ -39,6 +39,7 @@ extern "C" {
  * @retval EML_SUCCESS The library has been properly initialized
  * @retval EML_ALREADY_INITIALIZED The library was already initialized
  * @retval EML_NO_MEMORY Insufficient memory for initialization
+ * @retval EML_BAD_CONFIG A malformed config file was provided
  * @retval EML_UNKNOWN Internal library error
  */
 emlError_t emlInit();

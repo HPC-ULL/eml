@@ -59,9 +59,6 @@ struct emlDataProperties {
    * 0 if power counters are not available on this device.
    */
   size_t inst_power_field;
-
-  /** Sampling interval in nanoseconds */
-  long sampling_nanos;
 };
 
 /** Singly-linked list of datapoint blocks. */

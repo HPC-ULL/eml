@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <confuse.h>
 #include <dlfcn.h>
 #include <miclib.h>
 
@@ -21,6 +22,9 @@
 #include "timer.h"
 
 struct emlDriver mic_driver;
+
+//MIC power readings are updated every 50ms
+#define MIC_DEFAULT_SAMPLING_INTERVAL 50000000L
 
 //local state
 static void* handle;
@@ -88,8 +92,10 @@ err_unlink:
   return EML_SYMBOL_UNAVAILABLE;
 }
 
-static enum emlError init() {
+static enum emlError init(cfg_t* const config) {
   assert(!mic_driver.initialized);
+  assert(config);
+  mic_driver.config = config;
 
   enum emlError err;
 
@@ -260,8 +266,12 @@ static const struct emlDataProperties default_props = {
   .power_factor = EML_SI_MICRO,
   .inst_energy_field = 0,
   .inst_power_field = 1,
-  //MIC power readings are updated every 50ms
-  .sampling_nanos = 50000000L,
+};
+
+static cfg_opt_t cfgopts[] = {
+  CFG_BOOL("disabled", cfg_false, CFGF_NONE),
+  CFG_INT("sampling_interval", MIC_DEFAULT_SAMPLING_INTERVAL, CFGF_NONE),
+  CFG_END()
 };
 
 //public driver state and interface
@@ -270,6 +280,7 @@ struct emlDriver mic_driver = {
   .type = EML_DEV_MIC,
   .failed_reason = "",
   .default_props = &default_props,
+  .cfgopts = cfgopts,
 
   .init = &init,
   .shutdown = &shutdown,

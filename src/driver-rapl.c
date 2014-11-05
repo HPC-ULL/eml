@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <confuse.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -30,7 +31,9 @@
 #include "timer.h"
 
 struct emlDriver rapl_driver;
-static struct emlDataProperties default_props;
+
+//MSR_PKG_ENERGY_STATUS is updated every ~1ms
+#define RAPL_DEFAULT_SAMPLING_INTERVAL 1000000L
 
 static const size_t MSR_SIZE = 8;
 static const unsigned long long WRAP_VALUE = 1ULL << 32;
@@ -107,6 +110,8 @@ static const struct msr_config* cfg = &default_msr_config;
 static unsigned int power_divisor = 1 << 0x3;
 static unsigned int energy_divisor = 1 << 0x10;
 static unsigned int time_divisor = 1 << 0xA;
+
+static struct emlDataProperties default_props;
 
 static enum emlError open_msr(size_t core) {
   char filename[BUFSIZ];
@@ -336,8 +341,10 @@ err_free:
   return err;
 }
 
-static enum emlError init() {
+static enum emlError init(cfg_t* const config) {
   assert(!rapl_driver.initialized);
+  assert(config);
+  rapl_driver.config = config;
 
   enum emlError err;
 
@@ -455,8 +462,12 @@ static struct emlDataProperties default_props = {
   //.power_factor is unused
   .inst_energy_field = 1,
   .inst_power_field = 0,
-  //MSR_PKG_ENERGY_STATUS is updated every ~1ms
-  .sampling_nanos = 1000000L,
+};
+
+static cfg_opt_t cfgopts[] = {
+  CFG_BOOL("disabled", cfg_false, CFGF_NONE),
+  CFG_INT("sampling_interval", RAPL_DEFAULT_SAMPLING_INTERVAL, CFGF_NONE),
+  CFG_END()
 };
 
 //public driver state and interface
@@ -465,6 +476,7 @@ struct emlDriver rapl_driver = {
   .type = EML_DEV_RAPL,
   .failed_reason = "",
   .default_props = &default_props,
+  .cfgopts = cfgopts,
 
   .init = &init,
   .shutdown = &shutdown,

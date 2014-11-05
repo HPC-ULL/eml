@@ -16,6 +16,8 @@ AC_SEARCH_LIBS([clock_gettime], [rt])
 AC_SEARCH_LIBS([dlopen], [dl])
 AC_SEARCH_LIBS([pthread_create], [pthread])
 
+PKG_CHECK_MODULES([CONFUSE], [libconfuse])
+
 # Optional: Intel MIC support
 AC_ARG_WITH([mic], AS_HELP_STRING([--without-mic],
 	[Disable Intel Many Integrated Core support (default: enabled if present)]))

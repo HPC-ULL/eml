@@ -102,8 +102,9 @@ INPUT                  = include/ include/eml/ \
                          doc/groups.dox \
                          README.md \
                          INSTALL \
-                         doc/usage.md \
-                         doc/json.md
+                         doc/configuration.md \
+                         doc/json.md \
+                         doc/usage.md
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          =
 RECURSIVE              = NO

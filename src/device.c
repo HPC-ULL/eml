@@ -12,6 +12,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <confuse.h>
+
+#include "configuration.h"
 #include "data.h"
 #include "debug.h"
 #include "device.h"
@@ -23,6 +26,7 @@
 static const struct emlDriver* drivers[EML_DEVICE_TYPE_COUNT] = {0};
 static struct emlDevice** devices = NULL;
 static size_t ndevices = 0;
+static cfg_t* config;
 
 enum emlError emlInit() {
   if (devices)
@@ -43,6 +47,35 @@ enum emlError emlInit() {
   drivers[EML_DEV_MIC] = &mic_driver;
 #endif
 
+  cfg_opt_t cfgopts[] = {
+
+#ifdef ENABLE_NVML
+    CFG_SEC("nvml", drivers[EML_DEV_NVML]->cfgopts, CFGF_NONE),
+#endif
+
+#ifdef ENABLE_RAPL
+    CFG_SEC("rapl", drivers[EML_DEV_RAPL]->cfgopts, CFGF_NONE),
+#endif
+
+#ifdef ENABLE_MIC
+    CFG_SEC("mic", drivers[EML_DEV_MIC]->cfgopts, CFGF_NONE),
+#endif
+
+    CFG_END()
+  };
+
+  config = cfg_init(cfgopts, CFGF_NONE);
+#ifndef NDEBUG
+  cfg_set_error_function(config, &emlConfigPrintError);
+#endif
+  char* configpath = emlConfigFind();
+  if (configpath) {
+    int ret = cfg_parse(config, configpath);
+    free(configpath);
+    if (ret != CFG_SUCCESS)
+      return EML_BAD_CONFIG;
+  }
+
   devices = malloc(0);
   if (!devices)
     return EML_NO_MEMORY;
@@ -58,7 +91,14 @@ enum emlError emlInit() {
       continue;
     }
 
-    enum emlError ret = drv->init();
+    cfg_t* drvconfig = cfg_getsec(config, drv->name);
+    assert(drvconfig);
+    if (cfg_getbool(drvconfig, "disabled")) {
+      dbglog_info("Driver '%s' disabled from configuration file", drv->name);
+      continue;
+    }
+
+    enum emlError ret = drv->init(drvconfig);
 
     assert(ret != EML_ALREADY_INITIALIZED);
     if (ret != EML_SUCCESS) {
@@ -114,6 +154,8 @@ enum emlError emlShutdown() {
 
   free(devices);
   devices = NULL;
+
+  cfg_free(config);
 
   return EML_SUCCESS;
 }

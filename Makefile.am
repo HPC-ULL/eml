@@ -6,11 +6,13 @@ ACLOCAL_AMFLAGS = -I m4
 lib_LTLIBRARIES = lib@PACKAGE_TARNAME@.la
 lib@PACKAGE_TARNAME@_la_CPPFLAGS = -I$(top_srcdir)/include
 lib@PACKAGE_TARNAME@_la_SOURCES = \
+	src/configuration.c \
 	src/data.c \
 	src/device.c \
 	src/error.c \
 	src/monitor.c \
 	src/timer.c \
+	include/configuration.h \
 	include/data.h \
 	include/debug.h \
 	include/device.h \
@@ -34,6 +36,13 @@ if ENABLE_NVML
 lib@PACKAGE_TARNAME@_la_CPPFLAGS += -DENABLE_NVML
 lib@PACKAGE_TARNAME@_la_SOURCES += src/driver-nvml.c
 endif
+
+#Flags for dependencies
+
+lib@PACKAGE_TARNAME@_la_LIBADD =
+
+lib@PACKAGE_TARNAME@_la_LIBADD += @CONFUSE_LIBS@
+lib@PACKAGE_TARNAME@_la_CPPFLAGS += @CONFUSE_CFLAGS@
 
 #Installed headers
 
@@ -67,6 +76,7 @@ TESTS = $(binarytests)
 dist_doc_DATA = \
 	README.md \
 	doc/emlData.schema.json \
+	doc/configuration.md \
 	doc/json.md \
 	doc/usage.md
 

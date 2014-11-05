@@ -16,6 +16,8 @@
 #ifndef EML_DRIVER_H
 #define EML_DRIVER_H
 
+#include <confuse.h>
+
 #include "device.h"
 #include "error.h"
 
@@ -33,6 +35,12 @@ struct emlDriver {
   /** Default measurement properties for this driver */
   const struct emlDataProperties* default_props;
 
+  /** Configuration options available for this driver */
+  cfg_opt_t* cfgopts;
+
+  /** Driver configuration */
+  cfg_t* config;
+
   /** Whether the driver is initialized.
    *
    * 1 if it is initialized, 0 if it is not.
@@ -49,11 +57,13 @@ struct emlDriver {
   size_t ndevices;
 
   /**
-   * Initializes the driver
+   * Initializes the driver.
+   *
+   * @param[in] config Loaded configuration for this driver (or NULL if none)
    *
    * @retval EML_SUCCESS The driver was initialized
    */
-  enum emlError (*init) ();
+  enum emlError (*init) (cfg_t* config);
 
   /**
    * Shuts down the driver

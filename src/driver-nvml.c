@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <confuse.h>
 #include <dlfcn.h>
 #include <nvml.h>
 
@@ -21,6 +22,9 @@
 #include "timer.h"
 
 struct emlDriver nvml_driver;
+
+//Fermi GPU power readings are updated every ~16ms
+#define NVML_DEFAULT_SAMPLING_INTERVAL 16000000L
 
 //local state
 static void* handle;
@@ -75,8 +79,10 @@ err_unlink:
   return EML_SYMBOL_UNAVAILABLE;
 }
 
-static enum emlError init() {
+static enum emlError init(cfg_t* const config) {
   assert(!nvml_driver.initialized);
+  assert(config);
+  nvml_driver.config = config;
 
   enum emlError err;
 
@@ -243,10 +249,13 @@ static const struct emlDataProperties default_props = {
   .power_factor = EML_SI_MILLI,
   .inst_energy_field = 0,
   .inst_power_field = 1,
-  //Fermi GPU power readings are updated every ~16ms
-  .sampling_nanos = 16000000L,
 };
 
+static cfg_opt_t cfgopts[] = {
+  CFG_BOOL("disabled", cfg_false, CFGF_NONE),
+  CFG_INT("sampling_interval", NVML_DEFAULT_SAMPLING_INTERVAL, CFGF_NONE),
+  CFG_END()
+};
 
 //public driver state and interface
 struct emlDriver nvml_driver = {
@@ -254,6 +263,7 @@ struct emlDriver nvml_driver = {
   .type = EML_DEV_NVML,
   .failed_reason = "",
   .default_props = &default_props,
+  .cfgopts = cfgopts,
 
   .init = &init,
   .shutdown = &shutdown,

@@ -17,6 +17,8 @@
 #include <time.h>
 #include <sys/queue.h>
 
+#include <confuse.h>
+
 #include "data.h"
 #include "debug.h"
 #include "device.h"
@@ -50,7 +52,7 @@ struct emlMonitor {
 
 static void* monitor_thread(void* arg) {
   const struct emlDevice* dev = arg;
-  const long delay_ns = dev->driver->default_props->sampling_nanos;
+  const long delay_ns = cfg_getint(dev->driver->config, "sampling_interval");
 
   static const long NS_PER_SEC = 1000000000L;
   const struct timespec delay = {

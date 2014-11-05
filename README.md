@@ -28,6 +28,10 @@ License
 -------
 EML is released under the GPLv2 license.
 
+Dependencies
+------------
+* [libconfuse](https://github.com/martinh/libconfuse), for configuration parsing
+
 Contact
 -------
 Universidad de La Laguna, High Performance Computing group <cap@pcg.ull.es>
