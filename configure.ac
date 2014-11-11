@@ -1,4 +1,4 @@
-AC_INIT([EML], [0.1.0], [cap@pcg.ull.es])
+AC_INIT([EML], [0.2.0], [cap@pcg.ull.es])
 AC_CONFIG_SRCDIR([src/device.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile Doxyfile])
