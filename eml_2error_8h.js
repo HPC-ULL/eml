@@ -17,6 +17,8 @@ var eml_2error_8h =
       [ "EML_NOT_STARTED", "group__externalapi__error.html#gga38070549130da2681f71f9be9a56a9a1aca3ebee5b3b32b35f223843db7e6938a", null ],
       [ "EML_ALREADY_STARTED", "group__externalapi__error.html#gga38070549130da2681f71f9be9a56a9a1ac471f63cc0fc2ea5dd0b92d275cafef3", null ],
       [ "EML_MEASUREMENT_STACK_FULL", "group__externalapi__error.html#gga38070549130da2681f71f9be9a56a9a1a4c2e5ee754ab2cb027129dac1638b87e", null ],
+      [ "EML_BAD_CONFIG", "group__externalapi__error.html#gga38070549130da2681f71f9be9a56a9a1afa6c3cc0c79b616c600d884128124b7a", null ],
+      [ "EML_NETWORK_ERROR", "group__externalapi__error.html#gga38070549130da2681f71f9be9a56a9a1addf5e103a8e3da53285f348f1593c1a7", null ],
       [ "EML_UNKNOWN", "group__externalapi__error.html#gga38070549130da2681f71f9be9a56a9a1a94c1d8596b66d4a09a33fc987322454f", null ]
     ] ],
     [ "emlErrorMessage", "group__externalapi__error.html#gaf752af7976176e6b5f49ee9e0b2f1089", null ]

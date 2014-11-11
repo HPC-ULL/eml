@@ -9,15 +9,15 @@ var indexSectionsWithContent =
 {
   0: "bcdefijmnprstu",
   1: "e",
-  2: "demt",
+  2: "cdemt",
   3: "ens",
   4: "cdefimnprst",
   5: "e",
   6: "e",
   7: "e",
-  8: "dem",
+  8: "de",
   9: "bdei",
-  10: "iju"
+  10: "ciju"
 };
 
 var indexSectionNames =

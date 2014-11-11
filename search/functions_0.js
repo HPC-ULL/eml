@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['emlconfigfind',['emlConfigFind',['../configuration_8h.html#a2424b3c9cba5d8e404a3be0930010d00',1,'configuration.h']]],
+  ['emlconfigprinterror',['emlConfigPrintError',['../configuration_8h.html#aede6e3aa657e4fc75b1d30f66e2f83a7',1,'configuration.h']]],
   ['emldatadumpjson',['emlDataDumpJSON',['../group__externalapi__data.html#gade7adeab26850aa389edcf96b422d333',1,'data.h']]],
   ['emldatafree',['emlDataFree',['../group__externalapi__data.html#ga02e372487cd30f175e581c0368d22f3f',1,'data.h']]],
   ['emldatagetconsumed',['emlDataGetConsumed',['../group__externalapi__data.html#ga5c03583cb178e8e88c19e81fdcbcd3b5',1,'data.h']]],

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.8"/>
-<title>EML: Main Page</title>
+<title>EML: Configuration</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('md_configuration.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -89,41 +89,37 @@ $(document).ready(function(){initNavTree('index.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">EML Documentation</div>  </div>
+<div class="title">Configuration </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The Energy Measurement Library provides a simple API to extract energy consumption data from hardware power counters. It is designed to simplify energy consumption experimentation by presenting a unified interface for different kinds of hardware.</p>
-<p>The following devices are currently supported: </p><pre class="fragment">    * Intel CPUs starting from Sandy Bridge
-    (through the Running Average Power Limit interface)
-
-    * Recent Nvidia Tesla and Quadro GPUs
-    (through NVIDIA Management Library)
-
-    * Intel Xeon Phi MICs
-    (through the Intel Manycore Platform Software Stack (3.x+), from the host device)
-
-    * Schleifenbauer PDUs
-    (through the Schleifenbauer socket API)
-</pre><p>EML automatically discovers necessary libraries and available devices at runtime.</p>
-<h2>Documentation </h2>
-<p>Doxygen-generated documentation can be found at:</p>
-<p><a href="https://hpc-ull.github.io/eml">https://hpc-ull.github.io/eml</a></p>
-<h2>License </h2>
-<p>EML is released under the GPLv2 license.</p>
-<h2>Dependencies </h2>
-<p>Required:</p><ul>
-<li><a href="https://github.com/martinh/libconfuse">libconfuse</a>, for configuration parsing</li>
+<div class="textblock"><p>The behavior of the library can be controlled through a config file. It can be used to</p>
+<ul>
+<li>change measurement parameters, such as sampling rate</li>
+<li>declare devices that cannot be autodetected (mainly network-based devices)</li>
+<li>completely disable support for specific device types at runtime</li>
 </ul>
-<p>Optional:</p><ul>
-<li><a href="https://developer.nvidia.com/nvidia-management-library-nvml">NVML</a>, for Nvidia GPU support</li>
-<li><a href="https://software.intel.com/en-us/articles/intel-manycore-platform-software-stack-mpss">MPSS 3.x+</a>, for Intel MIC support</li>
-<li><a href="https://www.openssl.org">libcrypto</a>, for Schleifenbauer PDU support (RC4 encryption)</li>
+<p>The config file is optional. If not provided, the library will fall back on sane parameter defaults, and only autodetected devices will be available for measurement.</p>
+<h2>Loading </h2>
+<p>During <a class="el" href="group__externalapi__main.html#gac9fc3df543daa1602acb714fb8abb4ff">emlInit</a>, the library looks for a config file in the following paths, in order:</p>
+<ul>
+<li>1. <code>$XDG_CONFIG_HOME/eml/config</code> (if <code>$XDG_CONFIG_HOME</code> is set and not empty)</li>
+<li>2. <code>$HOME/.config/eml/config</code></li>
+<li>3. <code>/etc/eml/config</code></li>
 </ul>
-<h2>Contact </h2>
-<p>Universidad de La Laguna, High Performance Computing group <a href="#" onclick="location.href='mai'+'lto:'+'cap'+'@p'+'cg.'+'ul'+'l.e'+'s'; return false;">cap@p<span style="display: none;">.nosp@m.</span>cg.u<span style="display: none;">.nosp@m.</span>ll.es</a></p>
-<p>Homepage: <a href="http://cap.pcg.ull.es">http://cap.pcg.ull.es</a></p>
-<h2>Acknowledgements </h2>
-<p>This work was supported by the Spanish Ministry of Education and Science through TIN2011-24598 project, through the FPU program and the Spanish network CAPAP-H4. It also has been partially supported by EU under the COST programme Action IC1305, ‘Network for Sustainable Ultrascale Computing (NESUS)’ </p>
+<p>Only the first existing file is parsed, even if it is malformed (in which case it will be ignored).</p>
+<h2>Format </h2>
+<p>The config file is parsed using <code>libconfuse</code>.</p>
+<p>Each driver is configured in a separate section: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;# slower gpu sampling (1 sec)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;nvml {</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;  sampling_interval = 1000000000</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;}</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;# we don&#39;t need cpu measurements</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;rapl {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  disabled = true</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;}</div>
+</div><!-- fragment --><p> For available values, please check the driver code for now.</p>
+<p>Default values will be used for any missing entries, except for values made necessary for existing entries (such as the hostname field for a network device that is declared by the configuration). In particular, loading an empty config file has no effect. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

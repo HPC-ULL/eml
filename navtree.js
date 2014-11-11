@@ -2,8 +2,9 @@ var NAVTREE =
 [
   [ "EML", "index.html", [
     [ "Installation", "md_INSTALL.html", null ],
-    [ "Usage", "md_usage.html", null ],
+    [ "Configuration", "md_configuration.html", null ],
     [ "JSON serialization", "md_json.html", null ],
+    [ "Usage", "md_usage.html", null ],
     [ "Modules", "modules.html", "modules" ],
     [ "Data Structures", null, [
       [ "Data Structures", "annotated.html", "annotated" ],

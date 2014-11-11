@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.8"/>
-<title>EML: Main Page</title>
+<title>EML: configuration.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('configuration_8h.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -88,47 +88,111 @@ $(document).ready(function(){initNavTree('index.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">EML Documentation</div>  </div>
+<div class="title">configuration.h File Reference<div class="ingroups"><a class="el" href="group__internalapi.html">Internal API</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The Energy Measurement Library provides a simple API to extract energy consumption data from hardware power counters. It is designed to simplify energy consumption experimentation by presenting a unified interface for different kinds of hardware.</p>
-<p>The following devices are currently supported: </p><pre class="fragment">    * Intel CPUs starting from Sandy Bridge
-    (through the Running Average Power Limit interface)
 
-    * Recent Nvidia Tesla and Quadro GPUs
-    (through NVIDIA Management Library)
+<p>Internal definitions for EML configuration.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;stdarg.h&gt;</code><br />
+<code>#include &lt;confuse.h&gt;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a2424b3c9cba5d8e404a3be0930010d00"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="configuration_8h.html#a2424b3c9cba5d8e404a3be0930010d00">emlConfigFind</a> ()</td></tr>
+<tr class="memdesc:a2424b3c9cba5d8e404a3be0930010d00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the configuration filename.  <a href="#a2424b3c9cba5d8e404a3be0930010d00">More...</a><br /></td></tr>
+<tr class="separator:a2424b3c9cba5d8e404a3be0930010d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aede6e3aa657e4fc75b1d30f66e2f83a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="configuration_8h.html#aede6e3aa657e4fc75b1d30f66e2f83a7">emlConfigPrintError</a> (cfg_t *cfg, const char *fmt, va_list ap)</td></tr>
+<tr class="memdesc:aede6e3aa657e4fc75b1d30f66e2f83a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints an EML warning for a configuration parsing error.  <a href="#aede6e3aa657e4fc75b1d30f66e2f83a7">More...</a><br /></td></tr>
+<tr class="separator:aede6e3aa657e4fc75b1d30f66e2f83a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Internal definitions for EML configuration. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a2424b3c9cba5d8e404a3be0930010d00"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* emlConfigFind </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
-    * Intel Xeon Phi MICs
-    (through the Intel Manycore Platform Software Stack (3.x+), from the host device)
+<p>Returns the configuration filename. </p>
+<p>Looks for a configuration file in the following paths, in order:</p>
+<ol type="1">
+<li>$XDG_CONFIG_HOME/eml/config (if $XDG_CONFIG_HOME is set and not empty)</li>
+<li>$HOME/.config/eml/config</li>
+<li>/etc/eml/config</li>
+</ol>
+<p>Only the first existing file is returned, even if it is malformed.</p>
+<dl class="section note"><dt>Note</dt><dd>Configuration files are not required, and can be empty. Default values will be used for most missing entries (except for values made necessary by existing entries, such as the hostname for a network PDU that was declared in the configuration).</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The configuration filename </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">NULL</td><td>No configuration file exists </td></tr>
+  </table>
+  </dd>
+</dl>
 
-    * Schleifenbauer PDUs
-    (through the Schleifenbauer socket API)
-</pre><p>EML automatically discovers necessary libraries and available devices at runtime.</p>
-<h2>Documentation </h2>
-<p>Doxygen-generated documentation can be found at:</p>
-<p><a href="https://hpc-ull.github.io/eml">https://hpc-ull.github.io/eml</a></p>
-<h2>License </h2>
-<p>EML is released under the GPLv2 license.</p>
-<h2>Dependencies </h2>
-<p>Required:</p><ul>
-<li><a href="https://github.com/martinh/libconfuse">libconfuse</a>, for configuration parsing</li>
-</ul>
-<p>Optional:</p><ul>
-<li><a href="https://developer.nvidia.com/nvidia-management-library-nvml">NVML</a>, for Nvidia GPU support</li>
-<li><a href="https://software.intel.com/en-us/articles/intel-manycore-platform-software-stack-mpss">MPSS 3.x+</a>, for Intel MIC support</li>
-<li><a href="https://www.openssl.org">libcrypto</a>, for Schleifenbauer PDU support (RC4 encryption)</li>
-</ul>
-<h2>Contact </h2>
-<p>Universidad de La Laguna, High Performance Computing group <a href="#" onclick="location.href='mai'+'lto:'+'cap'+'@p'+'cg.'+'ul'+'l.e'+'s'; return false;">cap@p<span style="display: none;">.nosp@m.</span>cg.u<span style="display: none;">.nosp@m.</span>ll.es</a></p>
-<p>Homepage: <a href="http://cap.pcg.ull.es">http://cap.pcg.ull.es</a></p>
-<h2>Acknowledgements </h2>
-<p>This work was supported by the Spanish Ministry of Education and Science through TIN2011-24598 project, through the FPU program and the Spanish network CAPAP-H4. It also has been partially supported by EU under the COST programme Action IC1305, ‘Network for Sustainable Ultrascale Computing (NESUS)’ </p>
-</div></div><!-- contents -->
+</div>
+</div>
+<a class="anchor" id="aede6e3aa657e4fc75b1d30f66e2f83a7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void emlConfigPrintError </td>
+          <td>(</td>
+          <td class="paramtype">cfg_t *&#160;</td>
+          <td class="paramname"><em>cfg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">va_list&#160;</td>
+          <td class="paramname"><em>ap</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prints an EML warning for a configuration parsing error. </p>
+<dl class="section note"><dt>Note</dt><dd>This function is passed to cfg_set_error_function when in debug mode.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cfg</td><td>The configuration that caused the parsing error </td></tr>
+    <tr><td class="paramname">fmt</td><td>Format string for the error </td></tr>
+    <tr><td class="paramname">ap</td><td>Format string arguments </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="configuration_8h.html">configuration.h</a></li>
     <li class="footer">Generated on Tue Nov 11 2014 12:55:04 for EML by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8 </li>

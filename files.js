@@ -1,5 +1,6 @@
 var files =
 [
+    [ "configuration.h", "configuration_8h.html", "configuration_8h" ],
     [ "data.h", "data_8h.html", "data_8h" ],
     [ "eml/data.h", "eml_2data_8h.html", "eml_2data_8h" ],
     [ "debug.h", "debug_8h.html", "debug_8h" ],
