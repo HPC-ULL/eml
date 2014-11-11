@@ -105,11 +105,11 @@ README:
 
 GENGNUFILES += NEWS
 NEWS:
-	git for-each-ref 'refs/tags/v[0-9]*' --format="[@PACKAGE_NAME@ %(refname:short)] (released %(taggerdate:short))%0a%0a%(contents:body)%0a" > $@
+	git for-each-ref 'refs/tags/v[0-9]*' --sort=-taggerdate --format="[@PACKAGE_NAME@ %(refname:short)] (released %(taggerdate:short))%0a%0a%(contents:body)%0a" > $@
 
 GENGNUFILES += ChangeLog
 ChangeLog:
-	git log --pretty=format:"%ai %aN%n%n%x09* %s%d%n" > $@
+	git log --pretty=format:"%ai %aN%n%n%x09* %s%n" > $@
 
 DISTCLEANFILES = $(GENGNUFILES)
 dist-hook: $(GENGNUFILES)
