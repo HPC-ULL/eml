@@ -42,38 +42,47 @@ static nvmlReturn_t (*dl_nvmlShutdown)();
 static enum emlError link_nvml() {
   //clear any existing error
   dlerror();
+  const char* dlerr;
 
   handle = dlopen("libnvidia-ml.so", RTLD_LAZY);
-  if (dlerror()) {
-    strncpy(nvml_driver.failed_reason, dlerror(), sizeof(nvml_driver.failed_reason));
+  dlerr = dlerror();
+  if (dlerr) {
+    strncpy(nvml_driver.failed_reason, dlerr, sizeof(nvml_driver.failed_reason));
     return EML_LIBRARY_UNAVAILABLE;
   }
 
   *(void **) (&dl_nvmlInit) = dlsym(handle, "nvmlInit");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   *(void **) (&dl_nvmlDeviceGetCount) = dlsym(handle, "nvmlDeviceGetCount");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   *(void **) (&dl_nvmlDeviceGetHandleByIndex) = dlsym(handle, "nvmlDeviceGetHandleByIndex");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   *(void **) (&dl_nvmlDeviceGetPowerUsage) = dlsym(handle, "nvmlDeviceGetPowerUsage");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   *(void **) (&dl_nvmlDeviceGetPowerManagementMode) = dlsym(handle, "nvmlDeviceGetPowerManagementMode");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   *(void **) (&dl_nvmlErrorString) = dlsym(handle, "nvmlErrorString");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   *(void **) (&dl_nvmlShutdown) = dlsym(handle, "nvmlShutdown");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   return EML_SUCCESS;
 
 err_unlink:
-  strncpy(nvml_driver.failed_reason, dlerror(), sizeof(nvml_driver.failed_reason));
+  strncpy(nvml_driver.failed_reason, dlerr, sizeof(nvml_driver.failed_reason));
   dlclose(handle);
 
   return EML_SYMBOL_UNAVAILABLE;

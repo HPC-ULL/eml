@@ -46,47 +46,59 @@ static int (*dl_mic_get_inst_power_readings)(struct mic_power_util_info*, uint32
 static enum emlError link_miclib() {
   //clear any existing error
   dlerror();
+  const char* dlerr;
 
   handle = dlopen("libmicmgmt.so", RTLD_LAZY);
-  if (dlerror()) {
-    strncpy(mic_driver.failed_reason, dlerror(), sizeof(mic_driver.failed_reason));
+  dlerr = dlerror();
+  if (dlerr) {
+    strncpy(mic_driver.failed_reason, dlerr, sizeof(mic_driver.failed_reason));
     return EML_LIBRARY_UNAVAILABLE;
   }
 
   *(void **) (&dl_mic_get_devices) = dlsym(handle, "mic_get_devices");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   *(void **) (&dl_mic_free_devices) = dlsym(handle, "mic_free_devices");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   *(void **) (&dl_mic_get_ndevices) = dlsym(handle, "mic_get_ndevices");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   *(void **) (&dl_mic_get_device_at_index) = dlsym(handle, "mic_get_device_at_index");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   *(void **) (&dl_mic_open_device) = dlsym(handle, "mic_open_device");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   *(void **) (&dl_mic_close_device) = dlsym(handle, "mic_close_device");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   *(void **) (&dl_mic_get_error_string) = dlsym(handle, "mic_get_error_string");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   *(void **) (&dl_mic_get_power_utilization_info) = dlsym(handle, "mic_get_power_utilization_info");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   *(void **) (&dl_mic_free_power_utilization_info) = dlsym(handle, "mic_free_power_utilization_info");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   *(void **) (&dl_mic_get_inst_power_readings) = dlsym(handle, "mic_get_inst_power_readings");
-  if (dlerror()) goto err_unlink;
+  dlerr = dlerror();
+  if (dlerr) goto err_unlink;
 
   return EML_SUCCESS;
 
 err_unlink:
-  strncpy(mic_driver.failed_reason, dlerror(), sizeof(mic_driver.failed_reason));
+  strncpy(mic_driver.failed_reason, dlerr, sizeof(mic_driver.failed_reason));
   dlclose(handle);
 
   return EML_SYMBOL_UNAVAILABLE;
