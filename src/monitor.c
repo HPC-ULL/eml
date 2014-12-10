@@ -87,9 +87,13 @@ static void* monitor_thread(void* arg) {
     mon->curblk = thisblk;
     pthread_mutex_unlock(&mon->pointlock);
 
-    int err = clock_nanosleep(CLOCK_MONOTONIC, 0, &delay, NULL);
+    struct timespec left = delay;
+    int err;
+    while ((err = clock_nanosleep(CLOCK_MONOTONIC, 0, &left, &left)) == EINTR);
+
     assert(err != EINVAL);
     assert(err != EFAULT);
+    assert(err != ENOTSUP);
   }
 
   return NULL;
