@@ -415,8 +415,7 @@ static enum emlError shutdown() {
   rapl_driver.initialized = 0;
 
   for (size_t i = 0; i < ncores; i++) {
-    int ret = close(msrfd[i]);
-    assert(ret != -1 || errno != EBADF);
+    close(msrfd[i]);
   }
 
   free(prev_energy);

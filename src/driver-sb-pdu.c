@@ -635,8 +635,9 @@ err_close_socket_badmsg:
 err_close_socket:
   if (!errmsg) errmsg = strerror(errno);
   err = close(st->sockfd);
-  if (err < 0)
+  if (err < 0) {
     dbglog_error("Closing socket for %s: %s", cfg_title(pducfg), strerror(errno));
+  }
 
 err_free:
   if (!errmsg) errmsg = strerror(errno);
@@ -648,11 +649,13 @@ err_free:
 static int pdu_shutdown(const size_t pduno) {
   int err;
   err = shutdown(pdustate[pduno]->sockfd, SHUT_RDWR);
-  if (err)
+  if (err) {
     dbglog_info("shutting down socket: %s", strerror(errno));
+  }
   err = close(pdustate[pduno]->sockfd);
-  if (err)
+  if (err) {
     dbglog_info("closing socket: %s", strerror(errno));
+  }
 
   pthread_mutex_destroy(&pdustate[pduno]->msglock);
 
