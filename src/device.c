@@ -74,9 +74,7 @@ enum emlError emlInit() {
   };
 
   config = cfg_init(cfgopts, CFGF_NONE);
-#ifndef NDEBUG
-  cfg_set_error_function(config, &emlConfigPrintError);
-#endif
+  cfg_set_error_function(config, &emlConfigLogError);
   char* configpath = emlConfigFind();
   if (configpath) {
     int ret = cfg_parse(config, configpath);

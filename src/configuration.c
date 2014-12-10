@@ -62,8 +62,14 @@ char* emlConfigFind() {
     return NULL;
 }
 
-void emlConfigPrintError(cfg_t* cfg, const char* fmt, va_list ap) {
+void emlConfigLogError(cfg_t* cfg, const char* fmt, va_list ap) {
+#ifndef NDEBUG
   dbglog_warn("Parsing %s:%d: ", cfg->filename, cfg->line);
   vfprintf(stderr, fmt, ap);
   fprintf(stderr, "\n");
+#else
+  (void) cfg;
+  (void) fmt;
+  (void) ap;
+#endif
 }

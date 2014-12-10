@@ -42,14 +42,14 @@
 char* emlConfigFind();
 
 /**
- * Prints an EML warning for a configuration parsing error.
- *
- * @note This function is passed to cfg_set_error_function when in debug mode.
+ * Prints an EML debug warning given a configuration parsing error.
+ * In NDEBUG mode, this function ignores its arguments and does nothing.
+ * This is done to suppress the default error logging code in libconfuse.
  *
  * @param cfg The configuration that caused the parsing error
  * @param fmt Format string for the error
  * @param ap Format string arguments
  */
-void emlConfigPrintError(cfg_t* cfg, const char* fmt, va_list ap);
+void emlConfigLogError(cfg_t* cfg, const char* fmt, va_list ap);
 
 #endif /*EML_CONFIGURATION_H*/
