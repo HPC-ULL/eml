@@ -833,6 +833,7 @@ static cfg_opt_t cfgopts[] = {
 //public driver state and interface
 struct emlDriver sb_pdu_driver = {
   .name = "sb_pdu",
+  .type = EML_DEV_SB_PDU,
   .failed_reason = "",
   .default_props = &default_props,
   .cfgopts = cfgopts,
