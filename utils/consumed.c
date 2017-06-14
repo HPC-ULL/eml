@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
   //start measuring
   check_error(emlStart());
 
-  system(argv[1]);
+  if (system(argv[1])) {};
 
   //stop measuring and gather data
   check_error(emlStop(data));

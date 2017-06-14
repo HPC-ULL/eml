@@ -48,6 +48,12 @@ lib@PACKAGE_TARNAME@_la_LIBADD += @CRYPTO_LIBS@
 lib@PACKAGE_TARNAME@_la_CPPFLAGS += @CRYPTO_CFLAGS@
 endif
 
+if ENABLE_ODROID
+lib@PACKAGE_TARNAME@_la_CPPFLAGS += -DENABLE_ODROID
+lib@PACKAGE_TARNAME@_la_SOURCES += src/driver-odroid.c
+endif
+
+
 #Flags for common dependencies
 
 lib@PACKAGE_TARNAME@_la_LIBADD += @CONFUSE_LIBS@

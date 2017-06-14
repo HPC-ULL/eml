@@ -49,6 +49,14 @@ AS_IF([test "x$with_sb_pdu" != "xno"],
 	[PKG_CHECK_MODULES([CRYPTO], [libcrypto], [have_sb_pdu=yes])])
 AM_CONDITIONAL([ENABLE_SB_PDU], [test "x$have_sb_pdu" = "xyes"])
 
+# Optional: Odroid INA231 Sensor support 
+AC_ARG_WITH([sb_pdu], AS_HELP_STRING([--without-odroid],
+	[Disable Odroid support
+		(default: enabled)]))
+AS_IF([test "x$with_odroid" != "xno"], [have_odroid=yes])
+AM_CONDITIONAL([ENABLE_ODROID], [test "x$have_odroid" = "xyes"])
+
+
 LT_INIT
 
 # Doxygen documentation

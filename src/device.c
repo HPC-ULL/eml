@@ -52,6 +52,12 @@ enum emlError emlInit() {
   drivers[EML_DEV_SB_PDU] = &sb_pdu_driver;
 #endif
 
+#ifdef ENABLE_ODROID
+  extern struct emlDriver odroid_driver;
+  drivers[EML_DEV_ODROID] = &odroid_driver;
+#endif
+
+
   cfg_opt_t cfgopts[] = {
 
 #ifdef ENABLE_NVML
@@ -69,6 +75,11 @@ enum emlError emlInit() {
 #ifdef ENABLE_SB_PDU
     CFG_SEC("sb_pdu", drivers[EML_DEV_SB_PDU]->cfgopts, CFGF_NONE),
 #endif
+
+#ifdef ENABLE_ODROID
+    CFG_SEC("odroid", drivers[EML_DEV_ODROID]->cfgopts, CFGF_NONE),
+#endif
+
 
     CFG_END()
   };

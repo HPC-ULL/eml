@@ -43,6 +43,8 @@ typedef enum emlDeviceType {
   EML_DEV_MIC = 2,
   /** Schleifenbauer PDUs */
   EML_DEV_SB_PDU = 3,
+  /** Odroid with sensor support */
+  EML_DEV_ODROID = 4,
   /** Number of supported device types */
   EML_DEVICE_TYPE_COUNT
 } emlDeviceType_t;
