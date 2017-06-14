@@ -84,12 +84,12 @@ enum emlError emlDataUpdateTotals(struct emlData* data) {
   data->elapsed_time = 0;
   data->consumed_energy = 0;
 
-  size_t remaining = data->npoints;
   if (!data->npoints)
     return EML_SUCCESS;
 
+  size_t remaining = data->npoints;
   unsigned long long total_elapsed = 0;
-  for (const struct emlDataBlock* bp = data->firstblock; bp != NULL && remaining; bp = SLIST_NEXT(bp, entries), remaining -= DATABLOCK_SIZE) {
+  for (const struct emlDataBlock* bp = data->firstblock; bp != NULL && remaining; bp = SLIST_NEXT(bp, entries)) {
     //find current block size
     size_t blockstart = (bp == data->firstblock) ? (data->firstpoint % DATABLOCK_SIZE) : 0;
     size_t blocksize = DATABLOCK_SIZE - blockstart;
@@ -125,6 +125,11 @@ enum emlError emlDataUpdateTotals(struct emlData* data) {
         else
           data->consumed_energy += pwrdelta / (-props->time_factor);
       }
+    }
+    if (remaining - blocksize > 0) {
+      remaining -= blocksize;
+    } else {
+      remaining = 0;
     }
   }
 
