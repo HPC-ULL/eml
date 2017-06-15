@@ -13,6 +13,7 @@ AC_PROG_CC_C99
 AC_PROG_LN_S
 
 AC_SEARCH_LIBS([clock_gettime], [rt])
+AC_SEARCH_LIBS([round], [m])
 AC_SEARCH_LIBS([dlopen], [dl])
 AC_SEARCH_LIBS([pthread_create], [pthread])
 

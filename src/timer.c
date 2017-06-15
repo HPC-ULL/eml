@@ -12,6 +12,7 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <math.h>
 
 #if !defined (_POSIX_TIMERS) || (_POSIX_TIMERS <= 0)
 #error "POSIX timers are not supported"
@@ -40,4 +41,27 @@ unsigned long long nanotimestamp() {
   }
 
   return tms.tv_sec * 1000000000U + tms.tv_nsec;
+}
+
+
+unsigned long long millitimestamp() {
+  struct timespec tms;
+  const clockid_t clock =
+#if defined(CLOCK_MONOTONIC_RAW)
+    CLOCK_MONOTONIC_RAW;
+#elif defined(CLOCK_PRECISE)
+    CLOCK_PRECISE;
+#elif defined(_POSIX_MONOTONIC_CLOCK)
+    CLOCK_MONOTONIC;
+#else
+    CLOCK_REALTIME;
+#endif
+
+  int ret = clock_gettime(clock, &tms);
+  if (ret) {
+    dbglog_error("clock_gettime: %s", strerror(errno));
+    return 0;
+  }
+
+  return tms.tv_sec * 1000U + round(tms.tv_nsec / 1.0e6);
 }

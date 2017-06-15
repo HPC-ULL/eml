@@ -22,8 +22,19 @@
  * Uses the highest precision POSIX timer available.
  * Requires POSIX timer support.
  *
- * @return Timestamp.
+ * @return Timestamp in nanoseconds.
  */
 unsigned long long nanotimestamp();
+
+/**
+ * Returns milliseconds since some unspecified starting point.
+ *
+ * Uses the highest precision POSIX timer available.
+ * Requires POSIX timer support.
+ *
+ * @return Timestamp in milliseconds.
+ */
+unsigned long long millitimestamp();
+
 
 #endif /*EML_TIMER_H*/

@@ -57,7 +57,6 @@ static enum emlError measurement_enabled(char *sensor, int *enabled) {
   char is_enabled[ODROID_BUFSIZ];
 
   int err = read(enablefd, is_enabled, ODROID_BUFSIZ);
-  dbglog_info("Enabled?: %s\n", is_enabled);
   if (err < 0) {
     if (errno == ENXIO || errno == EIO)
       return EML_UNSUPPORTED;
@@ -69,7 +68,6 @@ static enum emlError measurement_enabled(char *sensor, int *enabled) {
 
   close(enablefd);
   (*enabled) = atoi(is_enabled);
-  dbglog_info("Enabled atoi?: %d\n", *enabled);
   return EML_SUCCESS;
 }
 
@@ -155,20 +153,12 @@ static enum emlError init(cfg_t* const config) {
   size_t sensor_index = 0; // If not initialized, the free operation could fail
   sensor_amount = 0;
 
-  dbglog_info("DEBUG: find_sensors\n");
   err = find_sensors(sensors, &sensor_amount); // Allocates sensors and odroidfd
                                                // Sensor_amount is a global var, but it is passed 
                                                // as parameter to improve code legibility 
   if (err != EML_SUCCESS)
     goto err_free;
 
-  dbglog_info("%zu sensors: ", sensor_amount);
-  for (size_t i = 0; i  < sensor_amount; i++) 
-    dbglog_info("%s ", sensors[i]);
-  fflush(stdout);
-
-
-  dbglog_info("DEBUG: open_sensors\n");
   odroidfd = malloc(sizeof(odroidfd) * sensor_amount);
   for (sensor_index = 0; sensor_index < sensor_amount; sensor_index++) {
     err = open_sensor(sensor_index, sensors[sensor_index]);
@@ -195,10 +185,7 @@ static enum emlError init(cfg_t* const config) {
     memcpy(dev, &devinit, sizeof(*dev));
   }
 
-
-  dbglog_info("DEBUG: Device Initialized\n");
   odroid_driver.initialized = 1;
-
   return EML_SUCCESS;
 
 err_free_fd:
@@ -236,27 +223,24 @@ static enum emlError measure(size_t devno, unsigned long long* values) {
 
   enum emlError err;
 
-  values[0] = nanotimestamp();
+  values[0] = millitimestamp();
 
   unsigned long long power = 0;
   unsigned long long aux = 0;
 
-  dbglog_info("%llu read_sensors (%zu total)", values[0], sensor_amount);
   for (size_t sensor_index = 0; sensor_index < sensor_amount; sensor_index++) {
     err = read_sensor(sensor_index, &aux);
-    dbglog_info("  SENSOR %zu %llu", sensor_index, aux);
     if (err != EML_SUCCESS)  
       return err; 
     power += aux;
   }
   values[odroid_driver.default_props->inst_power_field * DATABLOCK_SIZE] = power; 
-  dbglog_info("    READ %llu", power);
   return EML_SUCCESS;
 }
 
 // default measurement properties for this driver
 static struct emlDataProperties default_props = {
-  .time_factor = EML_SI_NANO,
+  .time_factor = EML_SI_MILLI,
   .energy_factor = EML_SI_MICRO, // Measurement is in W, but to store on a long, it is multiplied by EML_SI_MEGA
 //  .power_factor = EML_SI_MICRO,  
   .inst_energy_field = 0,
