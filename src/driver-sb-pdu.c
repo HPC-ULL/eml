@@ -8,7 +8,7 @@
  */
 
 //feature test macro for addrinfo funcs
-#define _POSIX_C_SOURCE 1
+#define _POSIX_C_SOURCE 200112L
 
 #include <assert.h>
 #include <ctype.h>
@@ -52,7 +52,7 @@ static const size_t SCAN_PACKET_LEN = 13;
 static const char TAG[] = {'S','A','P','I'};
 static const size_t SIZE_LEN = 2;
 static const size_t CHECKSUM_LEN = 4;
-static const size_t COMMAND_LEN = 2;
+//static const size_t COMMAND_LEN = 2;
 static const size_t CRC_LEN = 2;
 static const size_t MEASURE_REG_LEN = 2;
 static const size_t NCHANNELS = 27;
