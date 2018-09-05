@@ -19,6 +19,13 @@ AC_SEARCH_LIBS([pthread_create], [pthread])
 
 PKG_CHECK_MODULES([CONFUSE], [libconfuse])
 
+# Optional: Dummy testing module Support 
+AC_ARG_ENABLE([dummy], AS_HELP_STRING([--enable-dummy],
+	[Enable Dummy testing support
+		(default: disabled)]))
+AS_IF([test "x$enable_dummy" != "xno"], [have_dummy=yes])
+AM_CONDITIONAL([ENABLE_DUMMY], [test "x$have_dummy" = "xyes"])
+
 # Optional: Intel MIC support
 AC_ARG_WITH([mic], AS_HELP_STRING([--without-mic],
 	[Disable Intel Many Integrated Core support
@@ -43,20 +50,26 @@ AS_IF([test "x$with_nvml" != "xno"],
 AM_CONDITIONAL([ENABLE_NVML], [test "x$have_nvml" = "xyes"])
 
 # Optional: Schleifenbauer PDU support
-AC_ARG_WITH([sb_pdu], AS_HELP_STRING([--without-sb-pdu],
-	[Disable Schleifenbauer PDU support
-		(default: enabled if libcrypto is available)]))
-AS_IF([test "x$with_sb_pdu" != "xno"],
+AC_ARG_ENABLE([sb_pdu], AS_HELP_STRING([--enable-sb-pdu],
+	[Enable Schleifenbauer PDU support
+		(default: disabled)]))
+AS_IF([test "x$enable_sb_pdu" = "xyes"],
 	[PKG_CHECK_MODULES([CRYPTO], [libcrypto], [have_sb_pdu=yes])])
 AM_CONDITIONAL([ENABLE_SB_PDU], [test "x$have_sb_pdu" = "xyes"])
 
 # Optional: Odroid INA231 Sensor support 
-AC_ARG_WITH([sb_pdu], AS_HELP_STRING([--without-odroid],
+AC_ARG_WITH([odroid], AS_HELP_STRING([--without-odroid],
 	[Disable Odroid support
 		(default: enabled)]))
 AS_IF([test "x$with_odroid" != "xno"], [have_odroid=yes])
 AM_CONDITIONAL([ENABLE_ODROID], [test "x$have_odroid" = "xyes"])
 
+# Optional: Labee(PSNN) REST Support 
+AC_ARG_ENABLE([labee], AS_HELP_STRING([--enable-labee],
+	[Enable Labee support
+		(default: disable)]))
+AS_IF([test "x$enable_labee" = "xyes"], [have_labee=yes])
+AM_CONDITIONAL([ENABLE_LABEE], [test "x$have_labee" = "xyes"])
 
 LT_INIT
 

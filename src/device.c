@@ -32,6 +32,11 @@ enum emlError emlInit() {
   if (devices)
     return EML_ALREADY_INITIALIZED;
 
+#ifdef ENABLE_DUMMY
+  extern struct emlDriver dummy_driver;
+  drivers[EML_DEV_DUMMY] = &dummy_driver;
+#endif
+
 #ifdef ENABLE_NVML
   extern struct emlDriver nvml_driver;
   drivers[EML_DEV_NVML] = &nvml_driver;
@@ -57,8 +62,16 @@ enum emlError emlInit() {
   drivers[EML_DEV_ODROID] = &odroid_driver;
 #endif
 
+#ifdef ENABLE_LABEE
+  extern struct emlDriver labee_driver;
+  drivers[EML_DEV_LABEE] = &labee_driver;
+#endif
 
   cfg_opt_t cfgopts[] = {
+
+#ifdef ENABLE_DUMMY
+    CFG_SEC("dummy", drivers[EML_DEV_DUMMY]->cfgopts, CFGF_NONE),
+#endif
 
 #ifdef ENABLE_NVML
     CFG_SEC("nvml", drivers[EML_DEV_NVML]->cfgopts, CFGF_NONE),
@@ -80,6 +93,9 @@ enum emlError emlInit() {
     CFG_SEC("odroid", drivers[EML_DEV_ODROID]->cfgopts, CFGF_NONE),
 #endif
 
+#ifdef ENABLE_LABEE
+    CFG_SEC("labee", drivers[EML_DEV_LABEE]->cfgopts, CFGF_NONE),
+#endif
 
     CFG_END()
   };

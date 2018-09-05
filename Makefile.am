@@ -1,4 +1,4 @@
-AM_CFLAGS = -Wall -Werror -Wextra -pedantic -fno-strict-aliasing
+AM_CFLAGS = -Wall -Wno-error -Wextra -pedantic -fno-strict-aliasing
 ACLOCAL_AMFLAGS = -I m4
 
 #Shared library
@@ -23,6 +23,12 @@ lib@PACKAGE_TARNAME@_la_SOURCES = \
 	include/timer.h
 
 lib@PACKAGE_TARNAME@_la_LIBADD =
+
+
+if ENABLE_DUMMY
+lib@PACKAGE_TARNAME@_la_CPPFLAGS += -DENABLE_DUMMY
+lib@PACKAGE_TARNAME@_la_SOURCES += src/driver-dummy.c
+endif
 
 if ENABLE_MIC
 lib@PACKAGE_TARNAME@_la_CPPFLAGS += -DENABLE_MIC
@@ -51,6 +57,11 @@ endif
 if ENABLE_ODROID
 lib@PACKAGE_TARNAME@_la_CPPFLAGS += -DENABLE_ODROID
 lib@PACKAGE_TARNAME@_la_SOURCES += src/driver-odroid.c
+endif
+
+if ENABLE_LABEE
+lib@PACKAGE_TARNAME@_la_CPPFLAGS += -DENABLE_LABEE
+lib@PACKAGE_TARNAME@_la_SOURCES += src/driver-labee.c
 endif
 
 

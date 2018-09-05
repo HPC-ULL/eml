@@ -405,7 +405,7 @@ err_free:
 
 error:
   if (rapl_driver.failed_reason[0] == '\0')
-    strncpy(rapl_driver.failed_reason, emlErrorMessage(err), sizeof(rapl_driver.failed_reason));
+    strncpy(rapl_driver.failed_reason, emlErrorMessage(err), sizeof(rapl_driver.failed_reason) - 1);
   return err;
 }
 

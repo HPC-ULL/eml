@@ -35,16 +35,20 @@ typedef struct emlDevice emlDevice_t;
 
 /** Known device types */
 typedef enum emlDeviceType {
+  /** Dummy measurement for testing algorithms */
+  EML_DEV_DUMMY = 0,
   /** Nvidia cards supporting power readings through NVML */
-  EML_DEV_NVML = 0,
+  EML_DEV_NVML = 1,
   /** Intel CPUs supporting energy counters through RAPL */
-  EML_DEV_RAPL = 1,
+  EML_DEV_RAPL = 2,
   /** Intel MICs (Xeon Phi) */
-  EML_DEV_MIC = 2,
+  EML_DEV_MIC = 3,
   /** Schleifenbauer PDUs */
-  EML_DEV_SB_PDU = 3,
+  EML_DEV_SB_PDU = 4,
   /** Odroid with sensor support */
-  EML_DEV_ODROID = 4,
+  EML_DEV_ODROID = 5,
+  /** Labee(PSNN) Rest interface */
+  EML_DEV_LABEE = 6,
   /** Number of supported device types */
   EML_DEVICE_TYPE_COUNT
 } emlDeviceType_t;

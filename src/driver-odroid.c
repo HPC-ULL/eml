@@ -199,7 +199,7 @@ err_free:
   free(sensors);
 
   if (odroid_driver.failed_reason[0] == '\0')
-    strncpy(odroid_driver.failed_reason, emlErrorMessage(err), sizeof(odroid_driver.failed_reason));
+    strncpy(odroid_driver.failed_reason, emlErrorMessage(err), sizeof(odroid_driver.failed_reason) - 1);
   return err;
 }
 
