@@ -1,4 +1,4 @@
-AC_INIT([EML], [0.2.0], [cap@pcg.ull.es])
+AC_INIT([EML], [1.0.0], [cap@pcg.ull.es])
 AC_CONFIG_SRCDIR([src/device.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile Doxyfile])
@@ -68,7 +68,8 @@ AM_CONDITIONAL([ENABLE_ODROID], [test "x$have_odroid" = "xyes"])
 AC_ARG_ENABLE([labee], AS_HELP_STRING([--enable-labee],
 	[Enable Labee support
 		(default: disable)]))
-AS_IF([test "x$enable_labee" = "xyes"], [have_labee=yes])
+AS_IF([test "x$enable_labee" = "xyes"], 
+	[PKG_CHECK_MODULES([XML_CURL], [libxml-2.0, libcurl], [have_labee=yes])])
 AM_CONDITIONAL([ENABLE_LABEE], [test "x$have_labee" = "xyes"])
 
 LT_INIT

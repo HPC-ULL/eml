@@ -45,6 +45,10 @@ const char* emlErrorMessage(enum emlError err) {
       return "malformed configuration file";
     case EML_NETWORK_ERROR:
       return "network error";
+    case EML_SENSOR_UNAVAILABLE:
+      return "Measurement sensor not present";
+    case EML_SENSOR_MEASUREMENT_ERROR:
+      return "Measurement sensor present, but seems not to work properly";
     default:
       return "unknown error";
   }

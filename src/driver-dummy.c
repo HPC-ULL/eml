@@ -41,7 +41,6 @@ static enum emlError init(cfg_t* const config) {
   assert(config);
   dummy_driver.config = config;
 
-  printf("OMG pre\n");
   dummy_driver.ndevices = 1;
   dummy_driver.devices = malloc(dummy_driver.ndevices * sizeof(*dummy_driver.devices));
   for (size_t i = 0; i < dummy_driver.ndevices; i++) {
@@ -55,7 +54,6 @@ static enum emlError init(cfg_t* const config) {
     memcpy(dev, &devinit, sizeof(*dev));
   }
 
-  printf("OMG\n");
   dummy_driver.initialized = 1;
   return EML_SUCCESS;
 }
@@ -81,8 +79,8 @@ static enum emlError measure(size_t devno, unsigned long long* values) {
 // default measurement properties for this driver
 static struct emlDataProperties default_props = {
   .time_factor = EML_SI_MILLI,
-  .energy_factor = EML_SI_MILLI, // Measurement is in W, but to store on a long, it is multiplied by EML_SI_MEGA
-//  .power_factor = EML_SI_MICRO,  
+  .energy_factor = 1,
+  .power_factor = EML_SI_MILLI,  
   .inst_energy_field = 0,
   .inst_power_field = 1,
 };

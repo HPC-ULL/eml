@@ -61,8 +61,12 @@ typedef enum emlError {
   EML_MEASUREMENT_STACK_FULL = 14,
   /** Bad configuration file */
   EML_BAD_CONFIG = 15,
-  /** Network error */
+  /** Network connection error */
   EML_NETWORK_ERROR = 16,
+  /** Sensor unavailable for reading */
+  EML_SENSOR_UNAVAILABLE = 17, 
+  /** Sensor responds, but it responds strange values */
+  EML_SENSOR_MEASUREMENT_ERROR = 18,
   /** Internal library error */
   EML_UNKNOWN = 999
 } emlError_t;
