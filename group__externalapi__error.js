@@ -19,6 +19,8 @@ var group__externalapi__error =
       [ "EML_MEASUREMENT_STACK_FULL", "group__externalapi__error.html#gga38070549130da2681f71f9be9a56a9a1a4c2e5ee754ab2cb027129dac1638b87e", null ],
       [ "EML_BAD_CONFIG", "group__externalapi__error.html#gga38070549130da2681f71f9be9a56a9a1afa6c3cc0c79b616c600d884128124b7a", null ],
       [ "EML_NETWORK_ERROR", "group__externalapi__error.html#gga38070549130da2681f71f9be9a56a9a1addf5e103a8e3da53285f348f1593c1a7", null ],
+      [ "EML_SENSOR_UNAVAILABLE", "group__externalapi__error.html#gga38070549130da2681f71f9be9a56a9a1a3aaf0a8aacd7333628fa7a74c863617b", null ],
+      [ "EML_SENSOR_MEASUREMENT_ERROR", "group__externalapi__error.html#gga38070549130da2681f71f9be9a56a9a1a6b10e88ba31c7989438d31301316020f", null ],
       [ "EML_UNKNOWN", "group__externalapi__error.html#gga38070549130da2681f71f9be9a56a9a1a94c1d8596b66d4a09a33fc987322454f", null ]
     ] ],
     [ "emlErrorMessage", "group__externalapi__error.html#gaf752af7976176e6b5f49ee9e0b2f1089", null ]

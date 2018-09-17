@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['installation',['Installation',['../md_INSTALL.html',1,'']]]
+  ['energy_20measurement_20library',['Energy Measurement Library',['../index.html',1,'']]]
 ];

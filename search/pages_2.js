@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['json_20serialization',['JSON serialization',['../md_json.html',1,'']]]
+  ['installation',['Installation',['../md_INSTALL.html',1,'']]]
 ];

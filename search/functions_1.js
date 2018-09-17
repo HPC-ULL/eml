@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nanotimestamp',['nanotimestamp',['../timer_8h.html#aa6126590f31d1eea190f25a8502a1f45',1,'timer.h']]]
+  ['millitimestamp',['millitimestamp',['../timer_8h.html#a6c8444a911896bf04b3bfba0df0f4275',1,'timer.h']]]
 ];

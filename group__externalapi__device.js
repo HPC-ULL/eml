@@ -4,10 +4,13 @@ var group__externalapi__device =
     [ "emlDeviceType_t", "group__externalapi__device.html#gab3ea3062673b8f3712cdaf7c67dfcfa1", null ],
     [ "emlDeviceTypeStatus_t", "group__externalapi__device.html#ga95ea3aaf822cb8ae8d104c7e0d3b67f3", null ],
     [ "emlDeviceType", "group__externalapi__device.html#ga09deb841299e079a3aba81ae719251a6", [
+      [ "EML_DEV_DUMMY", "group__externalapi__device.html#gga09deb841299e079a3aba81ae719251a6a56a68fc23f0b494e9000e0fbc34c9813", null ],
       [ "EML_DEV_NVML", "group__externalapi__device.html#gga09deb841299e079a3aba81ae719251a6a328a906df74556ecb75f5657cb64207f", null ],
       [ "EML_DEV_RAPL", "group__externalapi__device.html#gga09deb841299e079a3aba81ae719251a6aee16e56820b8eb1b1187d3e29d8f5af9", null ],
       [ "EML_DEV_MIC", "group__externalapi__device.html#gga09deb841299e079a3aba81ae719251a6a3ea8517e9b6b1969a0da5b13c86586bf", null ],
       [ "EML_DEV_SB_PDU", "group__externalapi__device.html#gga09deb841299e079a3aba81ae719251a6ab9fb7b2fa368d14c06f9f7625cf5da9e", null ],
+      [ "EML_DEV_ODROID", "group__externalapi__device.html#gga09deb841299e079a3aba81ae719251a6ae3f7eb981da7b51dce146898b7cdfbe8", null ],
+      [ "EML_DEV_LABEE", "group__externalapi__device.html#gga09deb841299e079a3aba81ae719251a6ae0dc8df2fd96d8cc9bc3723f0f5d405e", null ],
       [ "EML_DEVICE_TYPE_COUNT", "group__externalapi__device.html#gga09deb841299e079a3aba81ae719251a6a4a9ba93c04a0cafd7ee783584157e61d", null ]
     ] ],
     [ "emlDeviceTypeStatus", "group__externalapi__device.html#ga3bc4bcd9da7a2eba83f544516264f13c", [
