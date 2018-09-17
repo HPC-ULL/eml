@@ -7,25 +7,25 @@ kinds of hardware.
 
 The following devices are currently supported:
 
-	* Dummy devices for testing purposes
+  * Dummy devices for testing purposes
 
-	* Intel CPUs starting from Sandy Bridge
-	(through the Running Average Power Limit interface)
+  * Intel CPUs starting from Sandy Bridge
+  (through the Running Average Power Limit interface)
 
-	* Recent Nvidia Tesla and Quadro GPUs
-	(through NVIDIA Management Library)
+  * Recent Nvidia Tesla and Quadro GPUs
+  (through NVIDIA Management Library)
 
-	* Intel Xeon Phi MICs
-	(through the Intel Manycore Platform Software Stack (3.x+), from the host device)
+  * Intel Xeon Phi MICs
+  (through the Intel Manycore Platform Software Stack (3.x+), from the host device)
 
-	* Schleifenbauer PDUs
-	(through the Schleifenbauer socket API)
+  * Schleifenbauer PDUs
+  (through the Schleifenbauer socket API)
 
-	* Odroid-XU3 integrated sensors
-	(through linux sysfs)
+  * Odroid-XU3 integrated sensors
+  (through linux sysfs)
 
-	* Poznań Supercomputing and Networking Center Labee XML Interface 
-	(through its REST API)
+  * Poznań Supercomputing and Networking Center Labee XML Interface 
+  (through its REST API)
 
 EML automatically discovers necessary libraries and available devices at runtime.
 

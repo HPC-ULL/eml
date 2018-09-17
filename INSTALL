@@ -23,19 +23,24 @@ You can now proceed as with a source package:
 
 Build configuration
 -------------------
-By default, the library will be built with support for all devices. If necessary
+By default, the library will be built with support for all devices,
+except for those accessed through a network connection. If necessary
 header files for a specific device type are not found on the build machine,
 support will be automatically disabled for that type.
 
-It is also possible to manually disable support for a specific device through
+It is also possible to manually enable/disable support for a specific device through
 `configure` flags:
 
-	--without-mic           Disable Intel Many Integrated Core support (default:
-				enabled if present)
+	--with-dummy            Enable Dummy testing support (default: disabled)
+	--without-mic           Disable Intel Many Integrated Core support 
+	                        (default: enabled if miclib.h is available)
 	--without-rapl          Disable Intel Running Average Power Limit support
-				(default: enabled)
-	--without-nvml          Disable NVIDIA Management Library support (default:
-				enabled if present)
+	                        (default: enabled)
+	--without-nvml          Disable NVIDIA Management Library support 
+	                        (default: enabled if nvml.h is available)
+	--with-sb-pdu           Enable Schleifenbauer PDU support (default: disabled)
+	--without-odroid        Disable Odroid support (default: enabled)
+	--with-labee            Enable Labee support (default: disabled)
 
-Check the output of `configure --help` for a full list of configuration
+Check the output of `./configure --help` for a full list of configuration
 parameters.
