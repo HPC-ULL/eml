@@ -7,6 +7,8 @@ kinds of hardware.
 
 The following devices are currently supported:
 
+	* Dummy devices for testing purposes
+
 	* Intel CPUs starting from Sandy Bridge
 	(through the Running Average Power Limit interface)
 
@@ -18,6 +20,12 @@ The following devices are currently supported:
 
 	* Schleifenbauer PDUs
 	(through the Schleifenbauer socket API)
+
+	* Odroid-XU3 integrated sensors
+	(through linux sysfs)
+
+	* Poznań Supercomputing and Networking Center Labee XML Interface 
+	(through its REST API)
 
 EML automatically discovers necessary libraries and available devices at runtime.
 
@@ -40,6 +48,9 @@ Optional:
 * [NVML](https://developer.nvidia.com/nvidia-management-library-nvml), for Nvidia GPU support
 * [MPSS 3.x+](https://software.intel.com/en-us/articles/intel-manycore-platform-software-stack-mpss), for Intel MIC support
 * [libcrypto](https://www.openssl.org), for Schleifenbauer PDU support (RC4 encryption)
+* [libxml2](https://xmlsoft.org), for Labee support
+* [libcurl](https://curl.haxx.se/libcurl/), for Labee support
+
 
 Contact
 -------
@@ -50,6 +61,12 @@ Homepage: http://cap.pcg.ull.es
 Acknowledgements
 ----------------
 This work was supported by the Spanish Ministry of Education and Science through 
-TIN2011-24598 project, through the FPU program and the Spanish network CAPAP-H4. 
+TIN2011-24598 and TIN2016-78919-R project, through the FPU program and the Spanish network CAPAP-H. 
 It also has been partially supported by EU under the COST programme Action IC1305, 
-‘Network for Sustainable Ultrascale Computing (NESUS)’
+‘Network for Sustainable Ultrascale Computing (NESUS)’ and the European COST Action CHIPSET.
+Additional support was received through project ProID2017010130 and the grant TESIS2017010134,
+cofinanced by the Ministry of Economy, Industry, Commerce and Knowledge of Canary Islands and
+the European Social Funds (ESF).
+
+
+
