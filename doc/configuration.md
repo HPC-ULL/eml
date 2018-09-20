@@ -69,7 +69,8 @@ The driver configuration section is the .name value defined in its specified dri
 
 - rapl (Intel RAPL)
   - **sampling_interval**.<br/> 
-    Default: 1000000, i.e. ~1ms.
+    Default: 1000000, i.e. ~1ms. BE AWARE that for architectures previous to Intel Haswell sampling interval could 
+    introduce innacuracies if sampling is inferior to 50 ms [1].
 
 - nvml (Nvidia Management Library) 
   - **sampling_interval**.<br/> 
@@ -118,3 +119,6 @@ hw-id4,hostname4
     Default: actualPowerUsage
 
 
+[1] T. Ilsche, D. Hackenberg, S. Graul, R. Schöne and J. Schuchart, "Power measurements for compute nodes: 
+Improving sampling rates, granularity and accuracy," 2015 Sixth International Green and Sustainable Computing 
+Conference (IGSC), Las Vegas, NV, 2015, pp. 1-8. doi: 10.1109/IGCC.2015.7393710
