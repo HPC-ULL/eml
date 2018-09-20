@@ -157,6 +157,15 @@ static int is_cpu_model_supported(int model) {
     CPU_HASWELL_2 = 69,
     CPU_HASWELL_3 = 70,
     CPU_HASWELL_EP = 63,
+    CPU_BROADWELL_1 = 61,
+    CPU_BROADWELL_2 = 71,
+    CPU_BROADWELL_EP = 79,
+    CPU_BROADWELL_DE = 86,
+    CPU_SKYLAKE_1 = 78,
+    CPU_SKYLAKE_2 = 94,
+    CPU_SKYLAKE_3 = 85,
+    CPU_KABYLAKE_1 = 142,
+    CPU_KABYLAKE_2 = 158,
   };
 
   switch(model) {
@@ -168,6 +177,15 @@ static int is_cpu_model_supported(int model) {
     case CPU_HASWELL_2:
     case CPU_HASWELL_3:
     case CPU_HASWELL_EP:
+    case CPU_BROADWELL_1:
+    case CPU_BROADWELL_2:
+    case CPU_BROADWELL_EP:
+    case CPU_BROADWELL_DE:
+    case CPU_SKYLAKE_1:
+    case CPU_SKYLAKE_2:
+    case CPU_SKYLAKE_3:
+    case CPU_KABYLAKE_1:
+    case CPU_KABYLAKE_2:
       return 1;
     default:
       return 0;

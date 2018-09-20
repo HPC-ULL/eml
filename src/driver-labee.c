@@ -38,6 +38,9 @@
 #include "error.h"
 #include "timer.h"
 
+// CURL Options
+#define CURLOPT_DEFAULT_TIMEOUT_MS 500L
+
 // Confuse CFG options
 #define LABEE_HOSTNAME_CFG "hostname"
 #define LABEE_NODELIST_FILENAME_CFG "nodelist_file"
@@ -109,6 +112,7 @@ static enum emlError get_xml(struct xml_content * xc) {
     curl_easy_setopt(curl, CURLOPT_URL, labee_api_url);
     curl_easy_setopt(curl, CURLOPT_USERNAME, api_user);
     curl_easy_setopt(curl, CURLOPT_PASSWORD, api_passwd);
+    curl_easy_setopt(curl, CURLOPT_TIMEOUT_MS, CURLOPT_DEFAULT_TIMEOUT_MS);
 
     struct curl_slist * list = 0;
     list = curl_slist_append(list, "Content-type: application/xml");
