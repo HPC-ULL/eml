@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 #include <eml.h>
 
@@ -35,10 +36,17 @@ int main(int argc, char** argv) {
   check_error(emlDeviceGetCount(&count));
   emlData_t* data[count];
 
+  char buffer[BUFSIZ];
+  memset(buffer, 0, BUFSIZ);
+  for (int i = 1; i < argc; i++) {
+    strcat(buffer, argv[i]);
+    strcat(buffer, " ");
+  }
+
   //start measuring
   check_error(emlStart());
 
-  if (system(argv[1])) {};
+  system(buffer);
 
   //stop measuring and gather data
   check_error(emlStop(data));
