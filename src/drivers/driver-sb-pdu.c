@@ -827,7 +827,6 @@ static cfg_opt_t deviceopts[] = {
 static cfg_opt_t cfgopts[] = {
   CFG_BOOL("disabled", cfg_false, CFGF_NONE),
   CFG_INT("sampling_interval", SB_DEFAULT_SAMPLING_INTERVAL, CFGF_NONE),
-
   CFG_SEC("device", deviceopts, CFGF_MULTI | CFGF_TITLE | CFGF_NO_TITLE_DUPES),
 
   CFG_END()
