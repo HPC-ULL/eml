@@ -67,6 +67,11 @@ enum emlError emlInit() {
   drivers[EML_DEV_LABEE] = &labee_driver;
 #endif
 
+#ifdef ENABLE_PMLIB
+    extern struct emlDriver pmlib_driver;
+    drivers[EML_DEV_PMLIB] = &pmlib_driver;
+#endif
+
   cfg_opt_t cfgopts[] = {
 
 #ifdef ENABLE_DUMMY
@@ -95,6 +100,10 @@ enum emlError emlInit() {
 
 #ifdef ENABLE_LABEE
     CFG_SEC("labee", drivers[EML_DEV_LABEE]->cfgopts, CFGF_NONE),
+#endif
+
+#ifdef ENABLE_PMLIB
+    CFG_SEC("pmlib", drivers[EML_DEV_PMLIB]->cfgopts, CFGF_NONE),
 #endif
 
     CFG_END()

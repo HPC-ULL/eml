@@ -1,4 +1,3 @@
-
 set(sources
         timer.c
         error.c
@@ -8,10 +7,11 @@ set(sources
         device.c
 )
 
+
 set(public_headers
-        ../include/eml/error.h
-        ../include/eml/data.h
-        ../include/eml/device.h
+    ../include/eml/error.h
+    ../include/eml/data.h
+    ../include/eml/device.h
 )
 
 add_library(eml SHARED ${sources})
@@ -85,8 +85,8 @@ install(FILES ${public_headers}
 install(FILES ../include/eml.h
         DESTINATION include)
 
-
 target_include_directories(eml PRIVATE ../include)
+
 install(TARGETS eml
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
@@ -94,3 +94,13 @@ install(TARGETS eml
 install(FILES ${CMAKE_BINARY_DIR}/eml.pc
         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
 
+if (JNI_FOUND)
+    add_library(emljni SHARED emljni/emlMeter.c)
+    set_target_properties(emljni PROPERTIES
+            VERSION ${PROJECT_VERSION}
+            )
+    target_link_libraries(emljni eml confuse m pthread)
+    install(TARGETS emljni
+            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+endif()

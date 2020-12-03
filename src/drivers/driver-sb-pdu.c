@@ -63,7 +63,7 @@ static const char ETX = 3;
 
 struct emlDriver sb_pdu_driver;
 
-struct pdustate {
+static struct pdustate {
   int sockfd;
   pthread_mutex_t msglock;
   size_t noutlets;

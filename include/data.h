@@ -130,6 +130,12 @@ enum emlSIFactor {
   EML_SI_GIGA  = 1000000000,
 };
 
+enum emlTimeUnits {
+    EML_TIME_SECONDS = 1000L,
+    EML_TIME_MILLISECONDS = 1000000L,
+    EML_TIME_NANOSECONDS = 1000000000L,
+};
+
 /**
  * Computes totals for a dataset from the datapoints.
  *

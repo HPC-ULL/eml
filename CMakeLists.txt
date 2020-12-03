@@ -24,6 +24,8 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     add_definitions(-std=c99)
 endif()
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
 include_directories("${PROJECT_SOURCE_DIR}/config")
 include_directories("${PROJECT_SOURCE_DIR}/src")
@@ -39,7 +41,12 @@ configure_file(config/eml.pc.in eml.pc @ONLY)
 pkg_search_module(CONFUSE REQUIRED libconfuse)
 check_include_files(nvml.h HAVE_NVML)
 check_include_files(miclib.h HAVE_MIC)
-check_include_files(jni.h HAVE_JNI)
+
+set(JAVA_AWT_LIBRARY NotNeeded)
+set(JAVA_JVM_LIBRARY NotNeeded)
+set(JAVA_INCLUDE_PATH2 NotNeeded)
+set(JAVA_AWT_INCLUDE_PATH NotNeeded)
+find_package(JNI)
 
 find_package(Doxygen)
 
@@ -65,7 +72,6 @@ if(BUILD_DOCUMENTATION)
             VERBATIM)
 
 endif()
-
 
 add_subdirectory(src)
 add_subdirectory(utils)

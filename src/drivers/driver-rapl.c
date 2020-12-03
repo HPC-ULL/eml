@@ -264,7 +264,7 @@ static enum emlError find_supported_cpu() {
 
 static enum emlError get_cpu_topology() {
   enum emlError err;
-  char buffer[BUFSIZ];
+  char buffer[BUFSIZ - 2];
   FILE* file;
   const char* pos;
 

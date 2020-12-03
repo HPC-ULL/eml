@@ -49,6 +49,8 @@ typedef enum emlDeviceType {
   EML_DEV_ODROID = 5,
   /** Labee(PSNN) Rest interface */
   EML_DEV_LABEE = 6,
+  /** PMLib interface */
+  EML_DEV_PMLIB = 7,
   /** Number of supported device types */
   EML_DEVICE_TYPE_COUNT
 } emlDeviceType_t;

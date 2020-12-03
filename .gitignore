@@ -47,3 +47,13 @@
 /stamp-h1
 /test-driver
 /test-suite.log
+# CmakeFile generated output
+/cmake-build-*
+/src/Makefile
+/src/CMakeFiles
+/src/cmake_install.cmake
+/cmake_install.cmake
+/eml.cbp
+/eml.pc
+# IntelliJ files
+/.idea/
