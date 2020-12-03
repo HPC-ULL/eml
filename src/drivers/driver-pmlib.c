@@ -43,7 +43,7 @@
 
 struct emlDriver pmlib_driver;
 
-#define PMLIB_DEFAULT_SAMPLING_INTERVAL 50 * EML_TIME_MILLISECONDS  // Default set to 50ms
+#define PMLIB_DEFAULT_SAMPLING_INTERVAL 50  // Default set to 50ms
 #define PMLIB_DEFAULT_TLS_INTERVAL 50 * EML_SI_NANO
 #define PMLIB_DEFAULT_HOST "localhost"
 #define PMLIB_DEFAULT_PORT 6526
@@ -150,10 +150,10 @@ static void pmlib_send_device_name(int sockfd, char * devicename) {
 
 static void pmlib_send_sampling_interval(int sockfd, long sampling_interval) {
     // PMLib receives number of samples per second
-    // samplingInterval = x NanoSeconds
-    // samplingIntervalInSeconds = EML_TIME_NANOSECONDS / sampling_interval
+    // samplingInterval = x MilliSeconds
+    // samplingIntervalInSeconds = EML_TIME_MILLISECONDS / sampling_interval
     // frequency = 1 / samplingIntervalInSeconds
-    int frequency = EML_TIME_NANOSECONDS / sampling_interval;
+    int frequency = EML_TIME_MILLISECONDS / sampling_interval;
     send(sockfd, &frequency, sizeof(frequency), 0);
 }
 
@@ -409,14 +409,14 @@ static enum emlError measure(size_t devno, unsigned long long *values) {
 
     //only actually query the pdu if there is no fresh block
     pthread_mutex_lock(&pmlibstate[pduno]->connection.msglock);
-    unsigned long long now = nanotimestamp();
+    unsigned long long now = millitimestamp();
     if (!pmlibstate[pduno]->last_timestamp || (now - pmlibstate[pduno]->last_timestamp) > measurement_interval) {
         pmlib_read_int(pmlibstate[pduno]); // Read num lines, required by the pmlib server every time
         for (int i = 0; i < pmlibstate[pduno]->n_outlets; i++) {
             // PMlib also requires reading all lines sequentially
             pmlibstate[pduno]->last_measurement[i] = pmlib_read_double(pmlibstate[pduno]);
         }
-        pmlibstate[pduno]->last_timestamp = nanotimestamp();
+        pmlibstate[pduno]->last_timestamp = millitimestamp();
     }
     pthread_mutex_unlock(&pmlibstate[pduno]->connection.msglock);
 
@@ -430,7 +430,7 @@ static enum emlError measure(size_t devno, unsigned long long *values) {
 
 // default measurement properties for this driver
 static struct emlDataProperties default_props = {
-        .time_factor = EML_SI_NANO,
+        .time_factor = EML_SI_MILLI,
         .energy_factor = EML_SI_MILLI,
         .power_factor = EML_SI_MILLI,
         .inst_energy_field = 0,
