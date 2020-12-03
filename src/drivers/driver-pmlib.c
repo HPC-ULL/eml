@@ -286,7 +286,7 @@ static enum emlError init_device(int devno, cfg_t* const pmlibcfg) {
     state->metric = metricRead(cfg_getstr(pmlibcfg, "metric"));
     state->n_outlets = cfg_getint(pmlibcfg, "n_outlets");
     state->n_target_outlets = cfg_size(pmlibcfg, "target_outlets");
-    state->target_outlets = calloc(state->n_target_outlets, sizeof(state->target_outlets));
+    state->target_outlets = calloc(state->n_outlets, sizeof(*state->target_outlets));
     for(int outlet = 0; outlet < state->n_target_outlets; outlet++) {
         int target_outlet = cfg_getnint(pmlibcfg, "target_outlets", outlet);
         state->target_outlets[target_outlet] = 1;
@@ -413,6 +413,7 @@ static enum emlError measure(size_t devno, unsigned long long *values) {
     if (!pmlibstate[pduno]->last_timestamp || (now - pmlibstate[pduno]->last_timestamp) > measurement_interval) {
         pmlib_read_int(pmlibstate[pduno]); // Read num lines, required by the pmlib server every time
         for (int i = 0; i < pmlibstate[pduno]->n_outlets; i++) {
+            // PMlib also requires reading all lines sequentially
             pmlibstate[pduno]->last_measurement[i] = pmlib_read_double(pmlibstate[pduno]);
         }
         pmlibstate[pduno]->last_timestamp = nanotimestamp();

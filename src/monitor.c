@@ -74,7 +74,7 @@ static void* monitor_thread(void* arg) {
     if (needblock) {
       thisblk = malloc(sizeof(*thisblk));
       if (!thisblk) goto mem_err;
-      thisblk->fields = malloc(nfields * DATABLOCK_SIZE * sizeof(*thisblk->fields));
+      thisblk->fields = calloc(nfields * DATABLOCK_SIZE, sizeof(*thisblk->fields));
       if (!thisblk->fields) goto mem_err;
       SLIST_INSERT_AFTER(mon->curblk, thisblk, entries);
     }
@@ -155,7 +155,7 @@ enum emlError emlDeviceMonitorStart(const struct emlDevice* const device) {
       free(mon->run);
       return EML_NO_MEMORY;
     }
-    mon->curblk->fields = malloc(nfields * DATABLOCK_SIZE * sizeof(*mon->curblk->fields));
+    mon->curblk->fields = calloc(nfields * DATABLOCK_SIZE, sizeof(*mon->curblk->fields));
     if (!mon->curblk->fields) {
       free(mon->run);
       free(mon->curblk);
